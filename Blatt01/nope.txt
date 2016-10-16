@@ -1,0 +1,22 @@
+
+xStr = "x = ["
+yStr = "y = ["
+b = 0
+i = 0
+
+for r in runtimes:
+	if b == 1:
+		xStr += ":"
+		yStr += ":"
+	
+	b = 1
+	yStr += str(r)
+	
+	xStr += str(i)
+	i += 1
+
+xStr += "];"
+yStr += "];"
+
+print(xStr)
+print(yStr)
