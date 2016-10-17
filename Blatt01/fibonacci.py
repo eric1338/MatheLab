@@ -21,15 +21,16 @@ def myPlot(plotList):
 	print(maxValue)
 	
 	for row in range(20):
-		str = "";
+		yVal = yStep * (yRange - row)
+		
+		rowStr = "";
 	
 		for res in plotList:
-			yVal = yStep * (yRange - row)
-			if abs(res - yVal) < yStep: str += "x"
-			else: str += " "
-		print(str)
+			if abs(res - yVal) < yStep: rowStr += "x"
+			else: rowStr += " "
+		print(rowStr)
 	print("0")
-	
+
 results = []
 
 for i in range(20):
