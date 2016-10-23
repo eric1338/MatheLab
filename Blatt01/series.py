@@ -1,38 +1,13 @@
 print("series [Ex. 2.4 a-c)]")
 
 import math;
+import matplotlib.pyplot as plt
 
 def factorialFunc(x):
     if x <= 0: return 1
 	
     return x * factorialFunc(x - 1)
 
-
-def myPlot(plotList):
-	minValue = 9999999999
-	maxValue = -1
-	for i in plotList:
-		if i < minValue: minValue = i
-		if i > maxValue: maxValue = i
-	
-	yRange = 20;
-	
-	yStep = (maxValue + abs(minValue)) / yRange
-	
-	print(maxValue)
-	
-	for row in range(yRange):
-		yVal = yStep * (yRange - row)
-		
-		rowStr = "";
-		
-		for res in plotList:
-			if abs(res - yVal) < yStep: rowStr += "x"
-			else: rowStr += " "
-		
-		print(rowStr)
-	
-	print(minValue)
 
 def aFunc(x):
 	sum = 0
@@ -41,14 +16,20 @@ def aFunc(x):
 	return sum
 
 results = []
+eulers = []
 
-for i in range(30):
+for i in range(10):
 	results.append(aFunc(i))
+	eulers.append(math.e)
 
 
 print("a)")
 
-myPlot(results)
+plt.plot(results)
+plt.plot(eulers)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
 
 print(" ")
 print("b)")
@@ -85,7 +66,7 @@ def bFunc2(d):
 		results.append(bFunc(d, x))
 		x += xStep
 	
-	myPlot(results)
+	#myPlot(results)
 
 for i in range(6):
 	print("degree: " + str(i + 1))
