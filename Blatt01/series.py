@@ -1,45 +1,45 @@
 print("series [Ex. 2.4 a-c)]")
 
 import math;
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt;
 
 def factorialFunc(x):
-    if x <= 0: return 1
+    if x <= 0: return 1;
 	
-    return x * factorialFunc(x - 1)
+    return x * factorialFunc(x - 1);
 
 
 def aFunc(x):
 	sum = 0
 	for i in range(x):
-		sum += (1.0 / factorialFunc(i))
-	return sum
+		sum += (1.0 / factorialFunc(i));
+	return sum;
 
-results = []
-eulers = []
+results = [];
+eulers = [];
 
 for i in range(10):
-	results.append(aFunc(i))
-	eulers.append(math.e)
+	results.append(aFunc(i));
+	eulers.append(math.e);
 
 
-print("a)")
+print("a)");
 
-plt.plot(results)
-plt.plot(eulers)
-plt.xlabel('x')
-plt.ylabel('y')
-plt.show()
+plt.plot(results);
+plt.plot(eulers);
+plt.xlabel('x');
+plt.ylabel('y');
+plt.show();
 
 print(" ")
 print("b)")
 
 def sinDerive(d):
-	xMod = d % 4
-	if (xMod == 0): return 0
-	if (xMod == 1): return 1
-	if (xMod == 2): return 0
-	return -1
+	xMod = d % 4;
+	if (xMod == 0): return 0;
+	if (xMod == 1): return 1;
+	if (xMod == 2): return 0;
+	return -1;
 
 
 #	if (xMod == 0): return math.sin(x)
@@ -48,28 +48,30 @@ def sinDerive(d):
 #	return -math.cos(x)
 
 def bFunc(d, x):
-	sum = 0
+	sum = 0;
 	for i in range(d):
-		sum += (sinDerive(i + 1) / factorialFunc(i + 1)) * pow(x, d)
+		sum += (sinDerive(i) / factorialFunc(i)) * pow(x, d);
 	
-	return sum
+	return sum;
 
 def bFunc2(d):
-	pi = 3.1415926
-	nSteps = 40
-	xStep = 4 * pi / nSteps
-	x = pi * -2
+	nSteps = 40;
+	xStep = 4 * math.pi / nSteps;
+	x = math.pi * -2;
 	
-	results = []
+	results = [];
 	
 	for i in range(nSteps):
-		results.append(bFunc(d, x))
-		x += xStep
+		results.append(bFunc(d, x));
+		x += xStep;
 	
-	#myPlot(results)
+	return results;
 
-for i in range(6):
-	print("degree: " + str(i + 1))
-	bFunc2(i + 1)
-	print(" ")
 
+for i in range(1, 7):
+	plt.plot(bFunc2(i));
+
+
+plt.xlabel('x');
+plt.ylabel('y');
+plt.show();
