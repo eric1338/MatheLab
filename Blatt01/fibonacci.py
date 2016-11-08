@@ -15,7 +15,7 @@ results = [];
 
 for i in range(20):
 	fib = fibonacciFunc(i);
-	print("fib(" + str(i + 1) + "): " + str(fib));
+	print("fib(" + str(i + 1) + ") = " + str(fib));
 	results.append(fib);
 	
 

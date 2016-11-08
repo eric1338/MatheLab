@@ -31,47 +31,82 @@ plt.xlabel('x');
 plt.ylabel('y');
 plt.show();
 
+
 print(" ")
 print("b)")
 
-def sinDerive(d):
-	xMod = d % 4;
-	if (xMod == 0): return 0;
-	if (xMod == 1): return 1;
-	if (xMod == 2): return 0;
-	return -1;
-
-
-#	if (xMod == 0): return math.sin(x)
-#	if (xMod == 1): return math.cos(x)
-#	if (xMod == 2): return -math.sin(x)
-#	return -math.cos(x)
-
 def bFunc(d, x):
-	sum = 0;
-	for i in range(d):
-		sum += (sinDerive(i) / factorialFunc(i)) * pow(x, d);
+	sum = x;
+	
+	if (d >= 3): sum -= (1.0 / 6.0) * pow(x, 3);
+	
+	if (d >= 5): sum += (1.0 / 120.0) * pow(x, 5);
 	
 	return sum;
 
+
 def bFunc2(d):
 	nSteps = 40;
-	xStep = 4 * math.pi / nSteps;
+	xStep = 4 * math.pi / (nSteps - 1);
 	x = math.pi * -2;
 	
+	xses = [];
 	results = [];
 	
 	for i in range(nSteps):
+		xses.append(x);
 		results.append(bFunc(d, x));
 		x += xStep;
 	
-	return results;
+	fn = [];
+	fn.append(xses);
+	fn.append(results);
+	
+	return fn;
 
 
-for i in range(1, 7):
-	plt.plot(bFunc2(i));
-
+for i in range(0, 7):
+	taylorFunc = bFunc2(i);
+	plt.plot(taylorFunc[0], taylorFunc[1]);
 
 plt.xlabel('x');
 plt.ylabel('y');
 plt.show();
+
+
+print(" ");
+print("c)");
+
+def eulerFunc(d, x):
+	if (d <= 0): return 1;
+
+	sum = 1;
+	
+	for i in range(1, d + 1):
+		sum += pow(x, i) / (factorialFunc(i) + 0.0);
+	
+	return sum;
+
+
+def getRemainder(n, x):
+	xabs = abs(x);
+	
+	return (math.exp(xabs) * pow(xabs, n + 1)) / (factorialFunc(n + 1) + 0.0);
+
+def getDegree(x):
+	n = 0;
+	
+	while n < 100:
+		remainder = getRemainder(n, x);
+		
+		if (remainder < 1e-11): return n;
+		
+		n = n + 1;
+		
+	return -1;
+
+for x in range(1, 6):
+	deg = getDegree(x);
+	eul = eulerFunc(deg, x);
+	
+	print("x = " + str(x) + " | degree = " + str(deg) + " | e(" + str(x) + ") = " + str(eul));
