@@ -4,11 +4,6 @@ import math;
 
 
 class RNG:
-	#a = 0;
-	#b = 0;
-	#m = 0;
-	#x = 0;
-	#bits = [];
 	
 	def __init__(self, pA = 7141, pB = 54773, pM = 259200):
 		self.bits = [];
@@ -79,18 +74,18 @@ class RNG:
 		
 		maximumPeriod = self.m * int(math.ceil(math.log(self.m, 2)));
 		
-		if maximumPeriod > 100002: maximumPeriod = 100002;
+		#if maximumPeriod > 100002: maximumPeriod = 100002;
 		
 		for i in range(1, maximumPeriod):
-			if i > 100000:
-				periodLength = -2;
-				break;
+			#if i > 100000:
+				#periodLength = -2;
+				#break;
 			
 			if self.isPeriod(i):
 				periodLength = i;
 				break;
 		
-		print("periodicty test:");
+		print("periodicity test:");
 		
 		if periodLength < -1.5:
 			print("no period shorter than 100,000 found.");
@@ -142,9 +137,7 @@ rng1 = RNG(1, 1, 10);
 rng1.printParameters();
 
 rng1.fillNumbers(25000);
-print(len(rng1.bits));
 rng1.makeSymmetryTest();
-
 
 print(" ");
 
@@ -161,5 +154,4 @@ rng3.printParameters();
 
 rng3.fillNumbers(25000);
 rng3.makeSymmetryTest();
-
 
