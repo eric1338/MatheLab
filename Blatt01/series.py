@@ -93,6 +93,7 @@ def getRemainder(n, x):
 	
 	return (math.exp(xabs) * pow(xabs, n + 1)) / (factorialFunc(n + 1) + 0.0);
 
+
 def getDegree(x):
 	n = 0;
 	
@@ -104,6 +105,7 @@ def getDegree(x):
 		n = n + 1;
 		
 	return -1;
+
 
 for x in range(1, 6):
 	deg = getDegree(x);
