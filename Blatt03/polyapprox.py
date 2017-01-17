@@ -109,8 +109,8 @@ for i in range(100):
 
 plt.plot(xses, realYses);
 plt.plot(xses, approxYses);
-plt.xlabel('x');
-plt.ylabel('y');
+plt.xlabel("x");
+plt.ylabel("y");
 plt.show();
 
 

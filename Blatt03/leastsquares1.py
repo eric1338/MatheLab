@@ -115,8 +115,8 @@ print(getCoefficients(baseFns, rndPoints));
 
 plt.plot(xses, yses);
 plt.plot(xses, rndYses, "ro");
-plt.xlabel('x');
-plt.ylabel('y');
+plt.xlabel("x");
+plt.ylabel("y");
 plt.show();
 
 
@@ -222,7 +222,7 @@ for i in range(152):
 plt.plot(txtFXses, txtF4Yses);
 plt.plot(txtFXses, txtF2Yses);
 plt.plot(txtPointsXses, txtPointsYses, "ro");
-plt.xlabel('x');
-plt.ylabel('y');
+plt.xlabel("x");
+plt.ylabel("y");
 plt.show();
 
