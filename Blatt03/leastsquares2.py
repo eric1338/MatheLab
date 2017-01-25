@@ -1,4 +1,4 @@
-print("method of least squares 1 [Ex. 5.11 a-f)]")
+print("method of least squares 2 [Ex. 5.11 a-f)]")
 
 import math;
 import random;
