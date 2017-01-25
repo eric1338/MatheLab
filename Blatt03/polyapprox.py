@@ -6,9 +6,6 @@ import numpy as np;
 
 
 def getCoefficients(fx, degree, a, b):
-	valA = fx(a);
-	valB = fx(b);
-	
 	xses = [];
 	yses = [];
 	
@@ -34,7 +31,7 @@ def getCoefficients(fx, degree, a, b):
 	linSolutions = np.linalg.solve(matrixArr, vectorArr);
 	
 	return linSolutions;
-
+#
 
 
 def polynomialF(coefficients, x):
@@ -44,12 +41,12 @@ def polynomialF(coefficients, x):
 		sum += coefficients[i] * pow(x, i);
 	
 	return sum;
-
+#
 
 
 def myF(x):
 	return pow(math.e, -pow(x, 2));
-
+#
 
 
 def taylorFuncAt0(x):
@@ -64,7 +61,7 @@ def taylorFuncAt0(x):
 	sum += pow(x, 16) / 40320.0;
 	
 	return sum;
-
+#
 
 
 def taylorFuncAt4(x):
@@ -84,7 +81,7 @@ def taylorFuncAt4(x):
 	sum += 3937007 * pow(xm4, 10) / (113400 * ep16);
 	
 	return sum;
-
+#
 
 
 print("b)");

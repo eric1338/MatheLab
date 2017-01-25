@@ -42,26 +42,20 @@ def getCoefficients(baseFunctions, dataPoints):
 	linSolutions = np.linalg.solve(matrixArr, vectorArr);
 	
 	return linSolutions;
+#
 
 
+def myF4(x): return pow(x, 4);
 
-def myF4(x):
-	return pow(x, 4);
+def myF3(x): return pow(x, 3);
 
-def myF3(x):
-	return pow(x, 3);
+def myF2(x): return pow(x, 2);
 
-def myF2(x):
-	return pow(x, 2);
+def myF1(x): return x;
 
-def myF1(x):
-	return x;
+def myF0(x): return 1;
 
-def myF0(x):
-	return 1;
-
-def myF(a, x, n):
-	return a * pow(x, n);
+def myF(a, x, n): return a * pow(x, n);
 
 
 
@@ -74,7 +68,7 @@ def polynomialF(coefficients, x):
 		sum += coefficients[i] * pow(x, nc - i - 1);
 	
 	return sum;
-
+#
 
 
 print("b)");

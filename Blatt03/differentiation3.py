@@ -10,11 +10,11 @@ def sheepFunc10(t, yVector):
 	return 10 * yVector[0] * (1 - yVector[1]);
 #
 
-def sheepFunc4(t, yVector):
+def sheepFunc9(t, yVector):
 	return 9 * yVector[0] * (1 - yVector[1]);
 #
 
-def sheepFunc2(t, yVector):
+def sheepFunc12(t, yVector):
 	return 12 * yVector[0] * (1 - yVector[1]);
 #
 
@@ -34,7 +34,7 @@ y0ses1.append(1);
 fses2 = [];
 y0ses2 = [];
 
-fses2.append(sheepFunc4);
+fses2.append(sheepFunc9);
 fses2.append(wolfsFunc);
 y0ses2.append(4);
 y0ses2.append(2);
@@ -42,7 +42,7 @@ y0ses2.append(2);
 fses3 = [];
 y0ses3 = [];
 
-fses3.append(sheepFunc2);
+fses3.append(sheepFunc12);
 fses3.append(wolfsFunc);
 y0ses3.append(3);
 y0ses3.append(2);

@@ -169,6 +169,7 @@ xses = [];
 for i in range(152):
 	xses.append(8 + i * 0.25);
 
+
 for i in range(7):
 	degree = i + 2;
 	
@@ -197,7 +198,8 @@ for i in range(10):
 	tYses.append(matrixT[i][1]);
 
 
-colors = ["r", "g", "b", "c", "m", "y", "k"];
+#colors = ["r", "g", "b", "c", "m", "y", "k"];
+colors = ["b", "c", "r", "g", "m", "y", "k"];
 
 
 plt.plot(xXses, xYses, "bo");
