@@ -1,0 +1,53 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\usepackage{listings}
+\lstset{
+	language=Python,
+	backgroundcolor=\color{white},
+	breaklines=true,
+	%prebreak={\carriagereturn},
+ 	breakautoindent=true,
+ 	numbers=left,
+ 	numberstyle=\tiny,
+ 	stepnumber=2,
+ 	numbersep=5pt,
+ 	keywordstyle=\color{blue},
+   	commentstyle=\color{green},
+   	stringstyle=\color{gray},
+	captionpos=b,
+	frame=single,
+	basicstyle=\footnotesize
+}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{csquotes}
+
+\setlength{\parindent}{0pt}
+
+\title{Advanced Mathematics for Engineers - Laboratory Problems}
+\author{Eric Saier (eric.saier@hs-weingarten.de)\\Mat-Nr. 28224}
+
+\begin{document}
+\maketitle
+
+
+%\mainmatter
+
+\include{chapters/linearAlgebra}
+\include{chapters/calculus}
+\include{chapters/statistics}
+\include{chapters/numerical}
+\include{chapters/approx}
+\include{chapters/integration}
+
+
+
+\end{document}

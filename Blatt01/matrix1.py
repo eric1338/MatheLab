@@ -5,16 +5,17 @@ import numpy as np;
 import sys;
 
 def getVectorFromLine(line):
-    numbers = [];
-    numberString = "";
-    for c in line:
-        if c == ' ' or c == ';':
-            numbers.append(float(numberString));
-            numberString = "";
-        else:
-            numberString += c;
-    
-    return numbers;
+	numbers = [];
+	numberString = "";
+	for c in line:
+		if c == ' ' or c == ';':
+			numbers.append(float(numberString));
+			numberString = "";
+		else:
+			numberString += c;
+	
+	return numbers;
+#
 
 
 myMatrix = [];
@@ -25,14 +26,15 @@ textFile = open('matrixTextFile.txt', 'r');
 readMatrix = True;
 
 for line in textFile:
-    if len(line) > 0:
-        if line[0] == '#':
-            readMatrix = False;
-        else:
-            vectorRead = getVectorFromLine(line);
-            
-            if readMatrix: myMatrix.append(vectorRead);
-            else: myVector = vectorRead;
+	if len(line) > 0:
+		if line[0] == '#':
+			readMatrix = False;
+		else:
+			vectorRead = getVectorFromLine(line);
+			
+			if readMatrix: myMatrix.append(vectorRead);
+			else: myVector = vectorRead;
+
 
 print("Matrix from file:");
 mylib.printMatrix(myMatrix);
@@ -148,9 +150,9 @@ for linSolution in linSolutions:
 
 
 def swapMatrixRows(matrix, row1, row2):
-    temp = matrix[row1];
-    matrix[row1] = matrix[row2];
-    matrix[row2] = temp;
+	temp = matrix[row1];
+	matrix[row1] = matrix[row2];
+	matrix[row2] = temp;
 
 
 def gaussElemMethod(matrix, vector):

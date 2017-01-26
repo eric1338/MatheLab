@@ -63,10 +63,6 @@ def myF1(x): return x;
 
 def myF0(x): return 1;
 
-def myF(a, x, n):
-	return a * pow(x, n);
-#
-
 
 def getBaseFunctionList(degree):
 	baseFunctions = [];

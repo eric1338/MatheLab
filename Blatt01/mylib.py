@@ -10,17 +10,17 @@ def getNumberString(pNumber, strLength):
 		for i in range(spacesBefore): nStr = " " + nStr;
 	
 	return nStr;
-
+#
 
 def printVector(pVector):
     for element in pVector:
-        print(getNumberString(element, 7));
-
+		print(getNumberString(element, 7));
+#
 
 def printMatrix(pMatrix):
-    for row in pMatrix:
-        rowStr = "";
-        for element in row:
-            rowStr += getNumberString(element, 7) + " ";
-        print(rowStr);
-
+	for row in pMatrix:
+		rowStr = "";
+		for element in row:
+			rowStr += getNumberString(element, 7) + " ";
+		print(rowStr);
+#
