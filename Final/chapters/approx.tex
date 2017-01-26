@@ -9,12 +9,13 @@
 \end{figure}
 
 
-
 \subsubsection{a)}
 
-X
+To calculate the coefficients, [...]
 
-\begin{lstlisting}[caption=todo]
+[numpy to solve lin eq]
+
+\begin{lstlisting}[caption=Problem 5.9 a)]
 def getCoefficients(fx, degree, a, b):
 	xses = [];
 	yses = [];
@@ -41,26 +42,16 @@ def getCoefficients(fx, degree, a, b):
 	linSolutions = np.linalg.solve(matrixArr, vectorArr);
 	
 	return linSolutions;
-#
 \end{lstlisting}
 
-
-results:
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
-R
-\end{lstlisting}
-
-X
-
+This function will be used in the following subtasks.
 
 
 \subsubsection{b)}
 
-X
+To use the coefficients as a function, a python function to [return a value is required].
 
-\begin{lstlisting}[caption=todo]
-
+\begin{lstlisting}[caption=Function which uses the calculated coefficients]
 def polynomialF(coefficients, x):
 	sum = 0.0;
 	
@@ -68,12 +59,13 @@ def polynomialF(coefficients, x):
 		sum += coefficients[i] * pow(x, i);
 	
 	return sum;
-#
+\end{lstlisting}
 
+[now plot them]
+
+\begin{lstlisting}[caption=todo]
 def myF(x):
 	return pow(math.e, -pow(x, 2));
-#
-
 
 coefficients = getCoefficients(myF, 10, -2, 10);
 
@@ -88,7 +80,6 @@ for i in range(100):
 	realYses.append(myF(x));
 	approxYses.append(polynomialF(coefficients, x));
 
-
 plt.plot(xses, realYses);
 plt.plot(xses, approxYses);
 plt.xlabel("x");
@@ -96,25 +87,25 @@ plt.ylabel("y");
 plt.show();
 \end{lstlisting}
 
+[the resulting plot looks like the following]
 
-results:
-
-\begin{figure}[!ht]
+%\begin{figure}[h!]
 \includegraphics[width=1\textwidth]{chapters/images/figure-5-9-b}
-\caption{todo}
+%\caption{Plot of the }
+%\end{figure}
+
+\begin{figure}[h!]
+%\includegraphics[width=1\textwidth]{chapters/images/figure-5-9-b}
+\caption{Plot of both functions}
 \end{figure}
 
-
-X
-
+[blue - real, green - approx]
+[close to origin in the positive part pretty equal]
 
 
 \subsubsection{c)}
 
-X
-
-\begin{lstlisting}[caption=todo]
-
+\begin{lstlisting}[caption=Problem 5.9 c)]
 maxApproxDev = -1;
 
 for i in range(100):
@@ -123,29 +114,24 @@ for i in range(100):
 	
 	maxApproxDev = max(maxApproxDev, abs(realY - approxY));
 
-
 print("maximum deviation: " + str(maxApproxDev));
-
 \end{lstlisting}
 
 
-results:
+The results of the calculation of the maximum deviation are:
 
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
+\begin{lstlisting}[caption=Result of 5.9 c), keywordstyle=\color{black}]
 maximum deviation: 0.634025332357
 \end{lstlisting}
-
-X
-
 
 
 \subsubsection{d)}
 
-X
+[First Taylor Series]
+
+[Calc Yses for Plot]
 
 \begin{lstlisting}[caption=todo]
-
-
 def taylorFuncAt0(x):
 	sum = 1;
 	sum -= pow(x, 2);
@@ -158,7 +144,6 @@ def taylorFuncAt0(x):
 	sum += pow(x, 16) / 40320.0;
 	
 	return sum;
-#
 
 def taylorFuncAt4(x):
 	ep16 = float(pow(math.e, 16));
@@ -177,7 +162,6 @@ def taylorFuncAt4(x):
 	sum += 3937007 * pow(xm4, 10) / (113400 * ep16);
 	
 	return sum;
-#
 
 taylor0Yses = [];
 taylor4Yses = [];
@@ -187,7 +171,11 @@ for i in range(100):
 	
 	taylor0Yses.append(taylorFuncAt0(x));
 	taylor4Yses.append(taylorFuncAt4(x));
+\end{lstlisting}
 
+[Then calculate deviation]
+
+\begin{lstlisting}[caption=todo]
 
 maxTaylor0Dev = -1;
 maxTaylor4Dev = -1;
@@ -200,26 +188,20 @@ for i in range(100):
 	maxTaylor0Dev = max(maxTaylor0Dev, abs(realY - taylor0Y));
 	maxTaylor4Dev = max(maxTaylor4Dev, abs(realY - taylor4Y));
 
-
 print("maximum deviation of taylor series with c = 0: " + str(maxTaylor0Dev));
 print("maximum deviation of taylor series with c = 4: " + str(maxTaylor4Dev));
 \end{lstlisting}
 
-
-results:
+[the results are]
 
 \begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
 maximum deviation of taylor series with c = 0: 1.88827128486e+11
 maximum deviation of taylor series with c = 4: 354.936464804
 \end{lstlisting}
 
-X
+[taylor at $c = 0$ with much bigger deviation]
 
-
-
-
-
-
+[because $c = 4$ is the center of interval]
 
 
 \subsection{Problem 5.10}
@@ -230,14 +212,13 @@ X
 \end{figure}
 
 
-
-
 \subsubsection{a)}
 
-X
+[get coefficients with method of least squares]
 
-\begin{lstlisting}[caption=todo]
+[again lin eq can be solved with numpy]
 
+\begin{lstlisting}[caption=Problem 5.10 a)]
 def getCoefficients(baseFunctions, dataPoints):
 	l = len(baseFunctions);
 	
@@ -266,31 +247,23 @@ def getCoefficients(baseFunctions, dataPoints):
 		
 		vecB.append(elemSum);
 	
-	
 	matrixArr = np.array(matA);
 	vectorArr = np.array(vecB);
 	
 	linSolutions = np.linalg.solve(matrixArr, vectorArr);
 	
 	return linSolutions;
-#
-
 \end{lstlisting}
-
-
-
-X
 
 
 \subsubsection{b)}
 
-X
+[with the function from a), simple to make the lin eq with two base functions.]
+
+[afterwards, calculate enough y values and plot them]
 
 \begin{lstlisting}[caption=todo]
-def myF2(x): return pow(x, 2);
-
 def myF1(x): return x;
-
 def myF0(x): return 1;
 
 baseFns = [];
@@ -318,24 +291,21 @@ for i in range(100):
 	linPoints.append([x, y]);
 	rndPoints.append([x, rndY]);
 
-
 print("coefficients:");
 print(getCoefficients(baseFns, linPoints));
 
 print("approximated coefficients:");
 print(getCoefficients(baseFns, rndPoints));
 
-
 plt.plot(xses, yses);
 plt.plot(xses, rndYses, "ro");
 plt.xlabel("x");
 plt.ylabel("y");
 plt.show();
-
 \end{lstlisting}
 
 
-results:
+[The result of the exact coefficients and the approximation with random points are]
 
 \begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
 coefficients:
@@ -345,7 +315,9 @@ approximated coefficients:
 [ 0.63139257   2.33442881 ]
 \end{lstlisting}
 
-X
+[the approximated coefficients are very close.]
+
+[the plot of the exact linear equation and the random points looks like this:]
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-5-10-b}
@@ -353,23 +325,16 @@ X
 \end{figure}
 
 
-
-
-
-
 \subsubsection{c)}
 
-X
+[also with the function, poly degree 4 and 2 which is needed for subtask d)]
 
 \begin{lstlisting}[caption=todo]
-
-
 def myF4(x): return pow(x, 4);
 def myF3(x): return pow(x, 3);
 def myF2(x): return pow(x, 2);
 def myF1(x): return x;
 def myF0(x): return 1;
-
 
 def polynomialF(coefficients, x):
 	sum = 0.0;
@@ -380,7 +345,6 @@ def polynomialF(coefficients, x):
 		sum += coefficients[i] * pow(x, nc - i - 1);
 	
 	return sum;
-#
 
 txtBaseFns4 = [];
 txtBaseFns2 = [];
@@ -399,41 +363,7 @@ txtPoints = [];
 
 txtPoints.append([8, -16186.1]);
 txtPoints.append([9, -2810.82]);
-txtPoints.append([10, 773.875]);
-txtPoints.append([11, 7352.34]);
-txtPoints.append([12, 11454.5]);
-txtPoints.append([13, 15143.3]);
-txtPoints.append([14, 13976.]);
-txtPoints.append([15, 15137.1]);
-txtPoints.append([16, 10383.4]);
-txtPoints.append([17, 14471.9]);
-txtPoints.append([18, 8016.53]);
-txtPoints.append([19, 7922.01]);
-txtPoints.append([20, 4638.39]);
-txtPoints.append([21, 3029.29]);
-txtPoints.append([22, 2500.28]);
-txtPoints.append([23, 6543.8]);
-txtPoints.append([24, 3866.37]);
-txtPoints.append([25, 2726.68]);
-txtPoints.append([26, 6916.44]);
-txtPoints.append([27, 8166.62]);
-txtPoints.append([28, 10104.]);
-txtPoints.append([29, 15141.8]);
-txtPoints.append([30, 15940.5]);
-txtPoints.append([31, 19609.5]);
-txtPoints.append([32, 22738.]);
-txtPoints.append([33, 25090.1]);
-txtPoints.append([34, 29882.6]);
-txtPoints.append([35, 31719.7]);
-txtPoints.append([36, 38915.6]);
-txtPoints.append([37, 37402.3]);
-txtPoints.append([38, 41046.6]);
-txtPoints.append([39, 37451.1]);
-txtPoints.append([40, 37332.2]);
-txtPoints.append([41, 29999.8]);
-txtPoints.append([42, 24818.1]);
-txtPoints.append([43, 10571.6]);
-txtPoints.append([44, 1589.82]);
+# [...] (I left out the other values in the paper to save space)
 txtPoints.append([45, -17641.9]);
 txtPoints.append([46, -37150.2]);
 
@@ -484,7 +414,6 @@ plt.plot(txtPointsXses, txtPointsYses, "ro");
 plt.xlabel("x");
 plt.ylabel("y");
 plt.show();
-
 \end{lstlisting}
 
 
@@ -500,11 +429,11 @@ X
 
 \subsubsection{d)}
 
-siehe c) - aufdröseln
+[use the functions from c) 
 
 \begin{lstlisting}[caption=todo]
 
-C
+siehe c) - aufdroeseln
 
 \end{lstlisting}
 
@@ -516,22 +445,16 @@ error of degree 4 polynomial: 101457690.277
 error of degree 2 polynomial: 7711489909.2
 \end{lstlisting}
 
-X
+[error of degree 4 over 70 times smaller] [makes sense]
 
+[the plot looks like this]
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-5-10-d}
 \caption{todo}
 \end{figure}
 
-Y
-
-
-
-
-
-
-
+[perfectly illustrates the closeness and farawayness of each function]
 
 
 \subsection{Problem 5.11}
@@ -541,43 +464,50 @@ Y
 \includegraphics[width=1\textwidth]{chapters/images/desc-5-11}
 \end{figure}
 
-
-X
-
-\begin{lstlisting}[caption=todo]
-
-C
-
-\end{lstlisting}
-
-Y
+The methods $getCoefficients$ and $polynomialF$ as well as the $txtPoints$ from problem 5.10 will be used in this exercise as well.
 
 
 \subsubsection{a)}
 
-(getCoefficients und txtPoints von vorheriger Aufgabe) (ref zu Listing)
+\begin{lstlisting}[caption=todo]
+evenPoints = [];
+
+for txtPoint in txtPoints:
+	if txtPoint[0] % 2 == 0:
+		evenPoints.append(txtPoint);
+\end{lstlisting}
+
+
+\subsubsection{b)}
 
 \begin{lstlisting}[caption=todo]
+matrixX = [];
+matrixT = [];
+
+for evenPoint in evenPoints:
+	rnd = random.random();
+	
+	if len(matrixT) >= 10 or (rnd < 0.5 and len(matrixX) < 10):
+		matrixX.append(evenPoint);
+	else:
+		matrixT.append(evenPoint);
+\end{lstlisting}
 
 
+\subsubsection{c)}
+
+[To get the polynomials up to degree 8, first the base functions have to be defined:]
+
+\begin{lstlisting}[caption=todo]
 def myF8(x): return pow(x, 8);
-
 def myF7(x): return pow(x, 7);
-
 def myF6(x): return pow(x, 6);
-
 def myF5(x): return pow(x, 5);
-
 def myF4(x): return pow(x, 4);
-
 def myF3(x): return pow(x, 3);
-
 def myF2(x): return pow(x, 2);
-
 def myF1(x): return x;
-
 def myF0(x): return 1;
-
 
 def getBaseFunctionList(degree):
 	baseFunctions = [];
@@ -594,49 +524,16 @@ def getBaseFunctionList(degree):
 	baseFunctions.append(myF0);
 	
 	return baseFunctions;
-#
+\end{lstlisting}
 
-def polynomialF(coefficients, x):
-	sum = 0.0;
-	
-	nc = len(coefficients);
-	
-	for i in range(nc):
-		sum += coefficients[i] * pow(x, nc - i - 1);
-	
-	return sum;
-#
+[using these base functions the coefficients can be calculated with the $getCoefficients$ function. Afterwards, the y values of those functions can be collected with the $polynomialF$ function to plot them].
 
-
-evenPoints = [];
-
-for txtPoint in txtPoints:
-	if txtPoint[0] % 2 == 0:
-		evenPoints.append(txtPoint);
-
-
-matrixX = [];
-matrixT = [];
-
-for evenPoint in evenPoints:
-	rnd = random.random();
-	
-	if len(matrixT) >= 10 or (rnd < 0.5 and len(matrixX) < 10):
-		matrixX.append(evenPoint);
-	else:
-		matrixT.append(evenPoint);
-
-
-
-print("c)");
-
-allYses = [];
-
+\begin{lstlisting}[caption=todo]
 xses = [];
+allYses = [];
 
 for i in range(152):
 	xses.append(8 + i * 0.25);
-
 
 for i in range(7):
 	degree = i + 2;
@@ -653,7 +550,6 @@ for i in range(7):
 	
 	allYses.append(yses);
 
-
 xXses = [];
 xYses = [];
 tXses = [];
@@ -665,10 +561,7 @@ for i in range(10):
 	tXses.append(matrixT[i][0]);
 	tYses.append(matrixT[i][1]);
 
-
-#colors = ["r", "g", "b", "c", "m", "y", "k"];
 colors = ["b", "c", "r", "g", "m", "y", "k"];
-
 
 plt.plot(xXses, xYses, "bo");
 plt.plot(tXses, tYses, "ro");
@@ -679,11 +572,21 @@ for i in range(len(allYses)):
 plt.xlabel("x");
 plt.ylabel("y");
 plt.show();
+\end{lstlisting}
+
+[the resulting graph looks like this.]
+
+\begin{figure}[!ht]
+\includegraphics[width=1\textwidth]{chapters/images/figure-5-11-c}
+\caption{todo}
+\end{figure}
 
 
-print(" ");
-print("d)");
+\subsubsection{d)}
 
+[to calculate the error, square of distance between data point]
+
+\begin{lstlisting}[caption=todo]
 def getError(coefficients, mat):
 	errorSum = 0;
 	
@@ -693,7 +596,6 @@ def getError(coefficients, mat):
 		errorSum += pow(fY - elem[1], 2);
 	
 	return errorSum;
-#
 
 def getErrors(degree, matX, matT):
 	baseFunctionList = getBaseFunctionList(degree);
@@ -704,7 +606,6 @@ def getErrors(degree, matX, matT):
 	errorSumT = getError(coefficients, matT);
 	
 	return [errorSumX, errorSumT];
-#
 
 degrees = [];
 errorsX = [];
@@ -712,14 +613,12 @@ errorsT = [];
 
 for i in range(7):
 	degree = i + 2;
-	
 	degrees.append(degree);
 	
 	errors = getErrors(degree, matrixX, matrixT);
 	
 	errorsX.append(errors[0]);
 	errorsT.append(errors[1]);
-#
 
 plt.plot(degrees, errorsX, "b");
 plt.plot(degrees, errorsT, "r");
@@ -727,98 +626,27 @@ plt.plot(degrees, errorsT, "r");
 plt.xlabel("degree");
 plt.ylabel("error");
 plt.show();
-
-
 \end{lstlisting}
 
-
-results:
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
-R
-\end{lstlisting}
-
-X
-
-
-
-\subsubsection{b)}
-
-X
-
-\begin{lstlisting}[caption=todo]
-
-C
-
-\end{lstlisting}
-
-
-results:
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
-R
-\end{lstlisting}
-
-X
-
-
-
-
-
-\subsubsection{c)}
-
-X
-
-\begin{lstlisting}[caption=todo]
-
-C
-
-\end{lstlisting}
-
-
-results:
-
-
-\begin{figure}[!ht]
-\includegraphics[width=1\textwidth]{chapters/images/figure-5-11-c}
-\caption{todo}
-\end{figure}
-
-X
-
-
-
-\subsubsection{d)}
-
-X
-
-\begin{lstlisting}[caption=todo]
-
-C
-
-\end{lstlisting}
-
-
-results:
-
+[the result looks the following:]
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-5-11-d}
 \caption{todo}
 \end{figure}
 
-X
-
-
-
-
 
 \subsubsection{e)}
+
+[with a higher degree, the deviation from training data is pretty small]. [obv since they are used for the small function]
+
+[on the test data however the error first drops but then increases]
 
 The deviation to the original approximated function (where all data points were used) minimizes the more evenly the points of X and T are distributed. The reason for that is that when there's a large interval of test points only, the approximated function has no bounds at all in that interval and can deviate as much as it needs to, without increasing the error.
 The results seems to be the the best with polynomials of degree 4 and 5.
 
+[a reason could be that functions of higher degrees tend to spike more, and they are more free with \enquote{loose} test data points]
+
 \subsubsection{f)}
 
-
-It makes sense because the approximated function is supposed to be close to all data values, and even the points "in between" which are not part of both the training and test data.
+It makes sense because the approximated function is supposed to be close to all data values, and even the points \enquote{in between} which are not part of both the training and test data.

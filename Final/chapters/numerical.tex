@@ -1,44 +1,35 @@
 \section{Numerical Mathematics Fundamendals}
 
-
 \subsection{Problem 4.8}
-
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/desc-4-8}
 \end{figure}
 
+First the function needs to be defined. The're are two ways to find a root, setting function equal to $0$ and setting the function equal to $x$. The function which is to be set equal to $0$ is going to be called $f(x)$, while the function to be set equal to $x$ is going to be called $fFixed(x)$, with their derived functions $fDerived(x)$ and $fFixedDerived$ respectively:
 
-X
-
-\begin{lstlisting}[caption=todo]
-
+\begin{lstlisting}[caption=Different functions for the equation]
 def fFixed(x):
 	return 0.5 * pow(math.e, -pow(x, 2));
-
 
 def fFixedDerived(x):
 	return -pow(math.e, -pow(x, 2)) * x;
 
-
 def f(x):
 	return fFixed(x) - x;
 
-
 def fDerived(x):
 	return fFixedDerived(x) - 1;
-
 \end{lstlisting}
 
-Y
+These functions will be used in the code of the following subtasks, where method to find a root determines which of them is going to be used.
 
 
 \subsubsection{a)}
 
-X
+With the following code both sides of the equation will be plotted:
 
-\begin{lstlisting}[caption=todo]
-
+\begin{lstlisting}[caption=Problem 4.8 a)]
 xses = [];
 fLeft = [];
 fRight = [];
@@ -50,68 +41,50 @@ for i in range(200):
 	fLeft.append(fFixed(x));
 	fRight.append(x);
 
-
 plt.plot(xses, fLeft);
 plt.plot(xses, fRight);
 plt.xlabel('x');
 plt.ylabel('y');
 plt.show();
-
-
 \end{lstlisting}
 
-
-results:
-
-
+The resulting plot of both sides of the equation looks like the following:
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-4-8-a}
-\caption{todo}
+\caption{Graphical solution for the root}
 \end{figure}
 
-graphical solution: little less than 0.5
-
+The approximate solution can be found graphically by looking for an intersection of both functions. The functions intersect close to the point $(0.45~|~0.45)$, therefore the root of the function is approximately 0.45.
 
 
 \subsubsection{b)}
 
-fixed-point iteration is applicable since 0 < L < 1 (see c))
-contraction interval: [0, 1] -> [0, 1]
-
-
-
+To use the fixed point interation method for finding a root of a function within an interval $[a, b] \rightarrow [a, b]$, the function has to be a contraction within this interval. A function is a contraction if the Lipschitz constant $L$ is greater than $0$ and smaller than $1$. Within the interval $[0, 1] \rightarrow [0, 1]$, where we graphically estimated the root in the sub task a), the Lipschitz constant is about $0.4289$ (see sub task c)), therefore the condition holds and fixed point interation is applicable.
 
 \subsubsection{c)}
 
-X
+The Lipschitz constant is the highest increase or decrease of a function, or in other words the maximum of the absolute value of the minimum and maximum of the first derivative of said function.
+The second derivative of the function has two roots, at $x_1 = -0.70711$ and $x_2 = 0.70711$. These are the maxima and minima of the first derivative, and therefore the highest increase of the function and the Lipschitz constant $L$. Since only $x_2$ is in the contraction interval, the Lipschitz constant can simply be calculated by plugging it into the function $f$.
 
-\begin{lstlisting}[caption=todo]
-
+\begin{lstlisting}[caption=Problem 4.8 c)]
 # -0.70711 and 0.70711 are roots of the 2nd derivative of f
 lipschitz = abs(fFixedDerived(0.70711));
 
 print("L = " + str(lipschitz));
-
 \end{lstlisting}
 
+The resulting $L$ is:
 
-results:
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
+\begin{lstlisting}[caption=Result of 4.8 c), keywordstyle=\color{black}]
 L = 0.428881942471
 \end{lstlisting}
 
-X
-
-
-
 \subsubsection{d)}
 
-X
+With the Lipschitz constant from c), the maximum number of iterations required to find a root with a given precision by using the fixed point iteration method can be calculated with the a priori estimation:
 
-\begin{lstlisting}[caption=todo]
-
+\begin{lstlisting}[caption=Problem 4.8 d)]
 steps = 0;
 err = 1;
 xdiff = f(0);
@@ -121,27 +94,30 @@ while err > 1e-12:
 	err = (pow(lipschitz, steps) / (1 - lipschitz)) * xdiff;
 
 print(str(steps) + " iteration steps required");
-
 \end{lstlisting}
 
+The result of this estimation is:
 
-results:
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
+\begin{lstlisting}[caption=Result of 4.8 d), keywordstyle=\color{black}]
 33 iteration steps required
 \end{lstlisting}
 
+Therefore, to get a precision of 12 decimal digits for our function $f$ a maximum of 33 iterations are needed.
 
 \subsubsection{e)}
 
-\begin{lstlisting}[caption=todo]
+First we need a function to see whether our calculated value is precise enough:
 
+\begin{lstlisting}[caption=Determine if an approximation is precise enough]
 def isPreciseEnough(val, goal, precision):
 	f = pow(10, precision);
 
 	return math.floor(val * f) == math.floor(goal * f);
+\end{lstlisting}
 
+The implementation of fixed point iteration could be realized in the following way:
 
+\begin{lstlisting}[caption=Fixed point iteration method]
 def getFixedPoint(x0, goal, precision):
 	x = x0;
 	steps = 1;
@@ -155,11 +131,13 @@ def getFixedPoint(x0, goal, precision):
 		steps = steps + 1;
 	
 	return steps;
+\end{lstlisting}
 
+The interval bisection method can be implemented like this:
 
+\begin{lstlisting}[caption=Interval Bisection method]
 def mySign(x):
 	return -1 if x < 0 else 1;
-
 
 def getRootBisection(pXA, pXB, goal, precision):
 	xa = pXA;
@@ -181,8 +159,11 @@ def getRootBisection(pXA, pXB, goal, precision):
 		steps = steps + 1;
 	
 	return steps;
+\end{lstlisting}
 
+Finally a function to approximate the root of a function with Newton's method could be realized the following way:
 
+\begin{lstlisting}[caption=Newton's method]
 def getRootNewton(x0, goal, precision):
 	x = x0;
 	steps = 1;
@@ -200,16 +181,17 @@ def getRootNewton(x0, goal, precision):
 		steps = steps + 1;
 	
 	return steps;
+\end{lstlisting}
 
+Afterwards, the three methods can be compared regarding how much time is needed to find the root of the function with the desired precision.
 
+\begin{lstlisting}[caption=Testing the three methods]
 def getTime():
 	return time.time();
-
 
 def printTimeDiff(startTime, endTime):
 	averageMS = round((endTime - startTime) / 10.0, 5);
 	print("average time taken: " + str(averageMS) + " milliseconds");
-
 
 def findRoot(type, goal, precision, p1 = 0, p2 = 0):
 	startTime = getTime();
@@ -226,8 +208,6 @@ def findRoot(type, goal, precision, p1 = 0, p2 = 0):
 	print("steps taken: " + str(steps));
 	printTimeDiff(startTime, getTime());
 
-
-
 def getFixedPointRec2(x, maxSteps, stepsTaken):
 	newX = fFixed(x);
 	
@@ -236,11 +216,10 @@ def getFixedPointRec2(x, maxSteps, stepsTaken):
 	else:
 		return newX;
 
-
 def getFixedPointRec1(x0, maxSteps):
 	return getFixedPointRec2(x0, maxSteps, 1);
 
-
+# get a precise enough approximation of the root 
 fP33 = getFixedPointRec1(0, 100);
 
 precision = 6;
@@ -264,7 +243,7 @@ findRoot(0, fP33, precision, 0, -1);
 print("interval bisection:");
 findRoot(1, fP33, precision, 0, 1);
 
-print("newton's method:");
+print("newtons method:");
 findRoot(2, fP33, precision, 0, -1);
 
 precision = 18;
@@ -276,15 +255,13 @@ findRoot(0, fP33, precision, 0, -1);
 print("interval bisection:");
 findRoot(1, fP33, precision, 0, 1);
 
-print("newton's method:");
+print("newtons method:");
 findRoot(2, fP33, precision, 0, -1);
-
 \end{lstlisting}
 
+The results of the tests are the following:
 
-results:
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
+\begin{lstlisting}[caption=Result of 4.8 e), keywordstyle=\color{black}]
 correct digits required: 6
 fixed point iteration:
 steps taken: 14
@@ -294,7 +271,7 @@ interval bisection:
 steps taken: 17
 average time taken: 0.0914 milliseconds
 
-newton's method:
+newtons method:
 steps taken: 4
 average time taken: 0.0237 milliseconds
 
@@ -307,7 +284,7 @@ interval bisection:
 steps taken: 40
 average time taken: 0.2703 milliseconds
 
-newton's method:
+newtons method:
 steps taken: 4
 average time taken: 0.0321 milliseconds
 
@@ -320,20 +297,17 @@ interval bisection:
 steps taken: 51
 average time taken: 0.3547 milliseconds
 
-newton's method:
+newtons method:
 steps taken: 5
 average time taken: 0.0377 milliseconds
 \end{lstlisting}
 
-Newton's method is the fastest because it also utilizes the first derivative of the function.
+As seen Newton's method is much faster than the other two methods, with up to almost a tenth of computational time. The second fastest method is fixed point iteration, while the interval bisection method is the slowest.
 
-Interval bisection is the slowest because by always using the middle of the interval as a bound, it reaches the root the slowest.
-
-
+The reason why Newton's method is the fastest is because it also utilizes the first derivative of the function, which is a valuable information to find the root quicker. Interval bisection is the slowest method because it doesn't even use the function value unlike fixed point iteration. Instead, the interval is halved halved with each step, no matter how close one bound is to the root of the function (except when the approximation is already precise enough of course).
 
 
 \subsubsection{f)}
 
-27 steps were needed instead of the estimated 33 steps. It took less steps because the a priori estimation always asumes the worst case scenario.
-
+To get a precise enough approximation of the root, 27 steps were needed instead of the estimated 33 steps in d). The reason it took less iterations is because the a priori estimation always asumes the worst case scenario.
 

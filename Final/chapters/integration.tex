@@ -27,19 +27,16 @@ X
 \begin{lstlisting}[caption=todo]
 def getRandCoord(a, b):
 	return random.random() * (b - a) + a;
-#
 
 def circleF(x):
 	newX = (x % 2) - 1;
 	return math.sqrt(1 - pow(newX, 2));
-#
 
 def doNaiveMonteCarloTest(xMin, xMax, yMin, yMax):
 	randX = getRandCoord(xMin, xMax);
 	randY = getRandCoord(yMin, yMax);
 	
 	return circleF(randX) > randY;
-#
 
 goal = math.pi;
 
@@ -57,7 +54,6 @@ def doNaiveMonteCarlo(precision):
 		areaEstimated = 4 * (successes / tries);
 	
 	return [areaEstimated, tries];
-#
 
 def doMeanMonteCarlo(precision):
 	areaEstimated = 0;
@@ -73,11 +69,8 @@ def doMeanMonteCarlo(precision):
 		areaEstimated = 4 * (sum / tries);
 	
 	return [areaEstimated, tries];
-#
-
 
 minError = 0.001;
-
 
 naiveMonteCarlo = doNaiveMonteCarlo(minError);
 
@@ -91,8 +84,6 @@ print(" ");
 print("mean value method:");
 print("estimated area: " + str(meanMonteCarlo[0]));
 print("tries: " + str(meanMonteCarlo[1]));
-
-
 \end{lstlisting}
 
 
@@ -117,7 +108,6 @@ X
 X
 
 \begin{lstlisting}[caption=todo]
-
 def getNaiveMonteCarloDeviation(tries):
 	successes = 0.0;
 	
@@ -128,7 +118,6 @@ def getNaiveMonteCarloDeviation(tries):
 	areaEstimated = 4 * (successes / tries);
 	
 	return abs(areaEstimated - goal);
-#
 
 def getMeanMonteCarloDeviation(tries):
 	sum = 0.0;
@@ -141,8 +130,6 @@ def getMeanMonteCarloDeviation(tries):
 	areaEstimated = 4 * (sum / tries);
 	
 	return abs(areaEstimated - goal);
-#
-
 
 xses = [];
 naiveYses = [];
@@ -156,13 +143,11 @@ for i in range(1, 250):
 	naiveYses.append(naiveDeviation);
 	meanYses.append(meanDeviation);
 
-
 plt.plot(xses, naiveYses);
 plt.plot(xses, meanYses);
 plt.xlabel("tries");
 plt.ylabel("deviation");
 plt.show();
-
 \end{lstlisting}
 
 
@@ -186,8 +171,9 @@ X
 \begin{lstlisting}[caption=todo]
 def isIn4DSphere4D(x, y, z, a):
 	return math.sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(a, 2)) < 1;
-#
+\end{lstlisting}
 
+\begin{lstlisting}[caption=todo]
 def doNaiveMonteCarloTest4D():
 	randX = getRandCoord(0, 1);
 	randY = getRandCoord(0, 1);
@@ -195,7 +181,6 @@ def doNaiveMonteCarloTest4D():
 	randA = getRandCoord(0, 1);
 	
 	return isIn4DSphere4D(randX, randY, randZ, randA);
-#
 
 goal2 = pow(math.pi, 2) / 2.0;
 
@@ -213,13 +198,19 @@ def doNaiveMonteCarlo4D(precision):
 		areaEstimated = 16 * (successes / tries);
 	
 	return [areaEstimated, tries];
-#
-
-
 
 fourDSphere = doNaiveMonteCarlo4D(minError);
 print("estimated area of 4D unit sphere: " + str(fourDSphere[0]));
+\end{lstlisting}
 
+results:
+
+\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
+estimated area of 4D unit sphere: 4.93493975904
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption=todo]
 total2DTries = 0.0;
 total4DTries = 0.0;
 
@@ -235,7 +226,6 @@ avg4DTries = total4DTries / float(runs);
 print(" ");
 print("average tries for 2d unit circle: " + str(avg2DTries));
 print("average tries for 4d unit sphere: " + str(avg4DTries));
-
 \end{lstlisting}
 
 The deviation tends to get smaller, yet it doesn't converge.
@@ -243,13 +233,11 @@ The deviation tends to get smaller, yet it doesn't converge.
 results:
 
 \begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
-estimated area of 4D unit sphere: 4.93493975904
-
 average tries for 2d unit circle: 4928.92
 average tries for 4d unit sphere: 14141.112
 \end{lstlisting}
 
-X
+[it takes about 3 times as much computational time to calculate the volume of a 4 dimensional unit sphere than it is to calculate the area of a 2 dimensional unit circle.]
 
 
 
@@ -270,13 +258,11 @@ X
 X
 
 \begin{lstlisting}[caption=todo]
-
 def odeSolver(f, a, b, y0, h, yp1Method):
-	yses = [];
-	
 	x = a;
 	y = y0;
 	
+	yses = [];
 	yses.append(y);
 	
 	while x <= b:
@@ -285,21 +271,17 @@ def odeSolver(f, a, b, y0, h, yp1Method):
 		yses.append(y);
 		
 		x += h;
-	#
 	
 	return yses;
-#
 
 def eulerYP1(f, x, y, h):
 	return y + h * f(x, y);
-#
 
 def heunYP1(f, x, y, h):
 	k1 = h * f(x, y);
 	k2 = h * f(x + h, y + k1);
 	
 	return y + 0.5 * (k1 + k2);
-#
 
 def rungeKuttaYP1(f, x, y, h):
 	k1 = h * f(x, y);
@@ -308,21 +290,15 @@ def rungeKuttaYP1(f, x, y, h):
 	k4 = h * f(x + h, y + k3);
 	
 	return y + (1 / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4);
-#
-
 
 def euler(f, a, b, y0, h):
 	return odeSolver(f, a, b, y0, h, eulerYP1);
-#
 
 def heun(f, a, b, y0, h):
 	return odeSolver(f, a, b, y0, h, heunYP1);
-#
 
 def rungeKutta(f, a, b, y0, h):
 	return odeSolver(f, a, b, y0, h, rungeKuttaYP1);
-#
-
 
 def odeSystemSolver(fVector, a, b, y0Vector, h, yp1Methods):
 	yVectorses = [];
@@ -340,10 +316,8 @@ def odeSystemSolver(fVector, a, b, y0Vector, h, yp1Methods):
 		yVector = yp1Vector;
 		
 		x += h;
-	#
 	
 	return yVectorses;
-#
 
 def rungeKuttaYP1System(fVector, x, yVector, h):
 	nF = len(fVector);
@@ -382,12 +356,9 @@ def rungeKuttaYP1System(fVector, x, yVector, h):
 		yp1Vector.append(yp1);
 	
 	return yp1Vector;
-#
 
 def rungeKuttaSystem(fVector, a, b, y0Vector, h):
 	return odeSystemSolver(fVector, a, b, y0Vector, h, rungeKuttaYP1System);
-#
-
 \end{lstlisting}
 
 
@@ -398,10 +369,11 @@ X
 
 \subsubsection{b)}
 
-X
+[for richardson extrapolation only the next step (yp1) functions need to be adjusted]
+
+[q and pk empirically]
 
 \begin{lstlisting}[caption=todo]
-
 def fkFunc(f, x, y, h, yp1Func, q, pk, step):
 	if step == 1:
 		fh = yp1Func(f, x, y, h);
@@ -411,75 +383,30 @@ def fkFunc(f, x, y, h, yp1Func, q, pk, step):
 		fqh = fkFunc(f, x, y, q * h, yp1Func, q, pk, step - 1);
 	
 	return fh + ((fh - fqh) / (pow(q, pk) - 1.0));
-#
 
 def eulerYP1Richardson(f, x, y, h):
 	return fkFunc(f, x, y, h, eulerYP1, 5, 23, 5);
-#
 
 def heunYP1Richardson(f, x, y, h):
 	return fkFunc(f, x, y, h, heunYP1, 2, 13, 5);
-#
 
 def rungeKuttaYP1Richardson(f, x, y, h):
 	return fkFunc(f, x, y, h, rungeKuttaYP1, 4, 18, 5);
-#
 
 def eulerRichardson(f, a, b, y0, h):
 	return odeSolver(f, a, b, y0, h, eulerYP1Richardson);
-#
 
 def heunRichardson(f, a, b, y0, h):
 	return odeSolver(f, a, b, y0, h, heunYP1Richardson);
-#
 
 def rungeKuttaRichardson(f, a, b, y0, h):
 	return odeSolver(f, a, b, y0, h, rungeKuttaYP1Richardson);
-#
-
-
 \end{lstlisting}
 
 
 
 X
 
-\begin{lstlisting}[caption=todo]
-
-trueVals = [];
-
-for i in range(8): trueVals.append(exT(i / 10.0, 0));
-
-bestError = 9999;
-bestQ = -1;
-bestPK = -1;
-
-for i in range(2, 6):
-	for j in range(2, 25):
-		qFU = i;
-		pkFU = j;
-	
-		fns = heunRichardson(exT, 0, 0.6, 1, 0.1);
-		
-		error = 0;
-		
-		for k in range(8):
-			error += abs(trueVals[k] - fns[k]);
-		
-		if (error < bestError):
-			bestError = error;
-			bestQ = qFU;
-			bestPK = pkFU;
-#
-
-print(bestQ);
-print(bestPK);
-
-\end{lstlisting}
-
-
-
-X
 
 
 
@@ -521,7 +448,7 @@ results:
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-7-14-a}
-\caption{$\alpha = 2$, initially 3 sheep and 4 wolfs}
+\caption{todo}
 \end{figure}
 
 
@@ -573,71 +500,39 @@ X
 X
 
 \begin{lstlisting}[caption=todo]
-def sheepFunc10(t, yVector):
+def sheepFunc(t, yVector):
 	return 10 * yVector[0] * (1 - yVector[1]);
-#
-
-def sheepFunc9(t, yVector):
-	return 9 * yVector[0] * (1 - yVector[1]);
-#
-
-def sheepFunc12(t, yVector):
-	return 12 * yVector[0] * (1 - yVector[1]);
-#
 
 def wolfsFunc(t, yVector):
 	return yVector[1] * (yVector[0] - 1);
-#
 
-fses1 = [];
-y0ses1 = [];
+fses = [];
+y0ses = [];
 
-fses1.append(sheepFunc10);
-fses1.append(wolfsFunc);
-y0ses1.append(3);
-y0ses1.append(1);
+fses.append(sheepFunc);
+fses.append(wolfsFunc);
+y0ses.append(3);
+y0ses.append(1);
 
-fses2 = [];
-y0ses2 = [];
+yVectors = dif.rungeKuttaSystem(fses, 0, 5, y0ses, 0.05);
 
-fses2.append(sheepFunc9);
-fses2.append(wolfsFunc);
-y0ses2.append(4);
-y0ses2.append(2);
+xses = [];
+sheepYses = [];
+wolfsYses = [];
 
-fses3 = [];
-y0ses3 = [];
+x = 0;
 
-fses3.append(sheepFunc12);
-fses3.append(wolfsFunc);
-y0ses3.append(3);
-y0ses3.append(2);
+for yVector in yVectors:
+	sheepYses.append(yVector[0]);
+	wolfsYses.append(yVector[1]);
+	xses.append(x);
+	x += 0.05;
 
-def testPredatorPrey(fses, y0ses):
-	yVectorses = dif.rungeKuttaSystem(fses, 0, 5, y0ses, 0.05);
-	
-	xses = [];
-	sheepYses = [];
-	wolfsYses = [];
-	
-	x = 0;
-	
-	for yVector in yVectorses:
-		sheepYses.append(yVector[0]);
-		wolfsYses.append(yVector[1]);
-		xses.append(x);
-		x += 0.05;
-	
-	plt.plot(xses, sheepYses);
-	plt.plot(xses, wolfsYses);
-	plt.xlabel("x");
-	plt.ylabel("y");
-	plt.show();
-#
-
-testPredatorPrey(fses1, y0ses1);
-testPredatorPrey(fses2, y0ses2);
-testPredatorPrey(fses3, y0ses3);
+plt.plot(xses, sheepYses);
+plt.plot(xses, wolfsYses);
+plt.xlabel("x");
+plt.ylabel("y");
+plt.show();
 \end{lstlisting}
 
 
@@ -646,19 +541,19 @@ results:
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-7-15-1}
-\caption{$\alpha = 2$, initially 3 sheep and 4 wolfs}
+\caption{$\alpha = 10$, initially 3 sheep and 1 wolfs}
 \end{figure}
 
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-7-15-2}
-\caption{$\alpha = 2$, initially 3 sheep and 4 wolfs}
+\caption{$\alpha = 9$, initially 4 sheep and 2 wolfs}
 \end{figure}
 
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-7-15-3}
-\caption{$\alpha = 2$, initially 3 sheep and 4 wolfs}
+\caption{$\alpha = 12$, initially 3 sheep and 2 wolfs}
 \end{figure}
 
 
@@ -681,7 +576,6 @@ X
 \begin{lstlisting}[caption=todo]
 def myF(x, y):
 	return x * math.sin(x * y);
-#
 
 xses = [];
 
@@ -700,12 +594,11 @@ results:
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-7-16}
-\caption{$\alpha = 2$, initially 3 sheep and 4 wolfs}
+\caption{todo}
 \end{figure}
 
 
 
-
-X
-
+Since the x parameter is a factor both inside and outside of the sine, the frequency as well as the amplitude increase as x grows. Hence, the fluctuation increases and the slopes get steeper and steeper. Because the step size stays the same, the curve gets \enquote{spikier} and slightly inaccurate.
+A possible solution could be to decrease the step size.
 
