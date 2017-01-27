@@ -9,28 +9,23 @@
 \end{figure}
 
 
-X
-
-\begin{lstlisting}[caption=todo]
-
-C
-
-\end{lstlisting}
-
-Y
-
-
 \subsubsection{a)}
 
-X
+First we need a function whose integral over a certain interval is equal the area of the unit circle. The integral of the function $\sqrt{1 - x^2}$ over the interval $[-1, 1]$ equals half the area of the unit circle, so with a little tweaking of the parameter $x$ we can modify the function to have an integral equal to the unit circle over the interval $[0, 4]$. The function in Python looks the following way:
 
-\begin{lstlisting}[caption=todo]
-def getRandCoord(a, b):
-	return random.random() * (b - a) + a;
-
+\begin{lstlisting}[caption=Function for the unit circle area]
 def circleF(x):
 	newX = (x % 2) - 1;
 	return math.sqrt(1 - pow(newX, 2));
+\end{lstlisting}
+
+Afterwards, we can use this function for the calculation of the area with both the naive and mean Monte Carlo method:
+
+\begin{lstlisting}[caption=Problem 7.12 a)]
+goal = math.pi;
+
+def getRandCoord(a, b):
+	return random.random() * (b - a) + a;
 
 def doNaiveMonteCarloTest(xMin, xMax, yMin, yMax):
 	randX = getRandCoord(xMin, xMax);
@@ -38,14 +33,12 @@ def doNaiveMonteCarloTest(xMin, xMax, yMin, yMax):
 	
 	return circleF(randX) > randY;
 
-goal = math.pi;
-
 def doNaiveMonteCarlo(precision):
 	areaEstimated = 0;
 	tries = 0.0;
 	successes = 0.0;
 
-	while abs(areaEstimated - goal) > precision and tries < 100000:
+	while abs(areaEstimated - goal) > precision:
 		if doNaiveMonteCarloTest(0, 4, 0, 1):
 			successes += 1;
 		
@@ -60,7 +53,7 @@ def doMeanMonteCarlo(precision):
 	tries = 0.0;
 	sum = 0.0;
 	
-	while abs(areaEstimated - goal) > precision and tries < 100000:
+	while abs(areaEstimated - goal) > precision:
 		randX = getRandCoord(0, 4);
 		
 		sum += circleF(randX);
@@ -73,23 +66,19 @@ def doMeanMonteCarlo(precision):
 minError = 0.001;
 
 naiveMonteCarlo = doNaiveMonteCarlo(minError);
-
 print("naive method:");
 print("estimated area: " + str(naiveMonteCarlo[0]));
 print("tries: " + str(naiveMonteCarlo[1]));
 
 meanMonteCarlo = doMeanMonteCarlo(minError);
-
-print(" ");
 print("mean value method:");
 print("estimated area: " + str(meanMonteCarlo[0]));
 print("tries: " + str(meanMonteCarlo[1]));
 \end{lstlisting}
 
+The results of those calculations are:
 
-results:
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
+\begin{lstlisting}[caption=Result of 7.12 a), keywordstyle=\color{black}]
 naive method:
 estimated area: 3.14241702843
 tries: 7141.0
@@ -99,15 +88,12 @@ estimated area: 3.14239623321
 tries: 658.0
 \end{lstlisting}
 
-X
-
-
 
 \subsubsection{b)}
 
-X
+To calculate the deviation we can use a slightly alternative version of the Monte Carlo functions of a).
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 7.13 b)]
 def getNaiveMonteCarloDeviation(tries):
 	successes = 0.0;
 	
@@ -150,30 +136,30 @@ plt.ylabel("deviation");
 plt.show();
 \end{lstlisting}
 
+\newpage
 
-results:
-
+The resulting graph looks like this:
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-7-12-b}
-\caption{todo}
+\caption{Deviation of the Monte Carlo methods}
 \end{figure}
 
-
-X
-
+Although the deviation tends to get smaller and smaller there is no convergence. Due to the random factor both functions have there is no guarantee the $y$ values get close to a certain value.
 
 
 \subsubsection{c)}
 
-X
+To calculate the volume we again need a function to check whether a random point is within our body of choice. For an n-dimensional unit sphere we can simply check whether the length of the n-dimensional vector of the coordinates is shorter than 1. If so, the point is within the sphere. The Python function for the four-dimensional sphere can be implemented in the following way:
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Function for the 4D unit sphere volume]
 def isIn4DSphere4D(x, y, z, a):
 	return math.sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(a, 2)) < 1;
 \end{lstlisting}
 
-\begin{lstlisting}[caption=todo]
+Again we use this function for the Monte Carlo method to calculate the volume the same way we did in the subtask a):
+
+\begin{lstlisting}[caption=4D unit sphere volume calculation]
 def doNaiveMonteCarloTest4D():
 	randX = getRandCoord(0, 1);
 	randY = getRandCoord(0, 1);
@@ -189,7 +175,7 @@ def doNaiveMonteCarlo4D(precision):
 	tries = 0.0;
 	successes = 0.0;
 
-	while abs(areaEstimated - goal2) > precision and tries < 1000000:
+	while abs(areaEstimated - goal2) > precision:
 		if doNaiveMonteCarloTest4D():
 			successes += 1;
 		
@@ -203,14 +189,15 @@ fourDSphere = doNaiveMonteCarlo4D(minError);
 print("estimated area of 4D unit sphere: " + str(fourDSphere[0]));
 \end{lstlisting}
 
-results:
+The result of the calculation is the following:
 
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
+\begin{lstlisting}[caption=Result of the 4D unit sphere volume calculation, keywordstyle=\color{black}]
 estimated area of 4D unit sphere: 4.93493975904
 \end{lstlisting}
 
+Afterwards we can analyze the computational time of both methods:
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 7.12 c)]
 total2DTries = 0.0;
 total4DTries = 0.0;
 
@@ -223,25 +210,18 @@ for i in range(runs):
 avg2DTries = total2DTries / float(runs);
 avg4DTries = total4DTries / float(runs);
 
-print(" ");
 print("average tries for 2d unit circle: " + str(avg2DTries));
 print("average tries for 4d unit sphere: " + str(avg4DTries));
 \end{lstlisting}
 
-The deviation tends to get smaller, yet it doesn't converge.
+The results of these calculations are:
 
-results:
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
+\begin{lstlisting}[caption=Result of 7.12 c), keywordstyle=\color{black}]
 average tries for 2d unit circle: 4928.92
 average tries for 4d unit sphere: 14141.112
 \end{lstlisting}
 
-[it takes about 3 times as much computational time to calculate the volume of a 4 dimensional unit sphere than it is to calculate the area of a 2 dimensional unit circle.]
-
-
-
-
+Looking at the results, it takes about 3 times as much computational time to calculate the volume of a 4 dimensional unit sphere than it is to calculate the area of a 2 dimensional unit circle.
 
 
 \subsection{Problem 7.13}
@@ -252,12 +232,11 @@ average tries for 4d unit sphere: 14141.112
 \end{figure}
 
 
-
 \subsubsection{a)}
 
-X
+To solve an ODE, first a general function can be defined for the basic approach. To make this function applicable for different approximation methods (like Euler method and Runge-Kutta method) the function which defines how to calculate the $y_{n + 1}$ value will be passed as an argument. This abstract function will be called \textit{yp1Method} in this exercise.
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Function to solve ODE]
 def odeSolver(f, a, b, y0, h, yp1Method):
 	x = a;
 	y = y0;
@@ -267,13 +246,16 @@ def odeSolver(f, a, b, y0, h, yp1Method):
 	
 	while x <= b:
 		y = yp1Method(f, x, y, h);
-		
 		yses.append(y);
 		
 		x += h;
 	
 	return yses;
+\end{lstlisting}
 
+Afterwards, we need to define the \textit{yp1Method} functions for the Euler, Heun, and Runge-Kutta methods.
+
+\begin{lstlisting}[caption=YP1Methods]
 def eulerYP1(f, x, y, h):
 	return y + h * f(x, y);
 
@@ -290,7 +272,11 @@ def rungeKuttaYP1(f, x, y, h):
 	k4 = h * f(x + h, y + k3);
 	
 	return y + (1 / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4);
+\end{lstlisting}
 
+The final ODE solving functions for each method can now call the basic \textit{odeSolver} function and pass the respective \textit{yp1Method}:
+
+\begin{lstlisting}[caption=ODE solving functions for each method]
 def euler(f, a, b, y0, h):
 	return odeSolver(f, a, b, y0, h, eulerYP1);
 
@@ -299,7 +285,11 @@ def heun(f, a, b, y0, h):
 
 def rungeKutta(f, a, b, y0, h):
 	return odeSolver(f, a, b, y0, h, rungeKuttaYP1);
+\end{lstlisting}
 
+To solve an ODE system the function has to be altered a little bit.
+
+\begin{lstlisting}[caption=Function to solve an ODE system]
 def odeSystemSolver(fVector, a, b, y0Vector, h, yp1Methods):
 	yVectorses = [];
 	
@@ -318,7 +308,11 @@ def odeSystemSolver(fVector, a, b, y0Vector, h, yp1Methods):
 		x += h;
 	
 	return yVectorses;
+\end{lstlisting}
 
+Also a new \textit{yp1Method} has to be defined:
+
+\begin{lstlisting}[caption=todo]
 def rungeKuttaYP1System(fVector, x, yVector, h):
 	nF = len(fVector);
 	
@@ -362,18 +356,11 @@ def rungeKuttaSystem(fVector, a, b, y0Vector, h):
 \end{lstlisting}
 
 
-
-X
-
-
-
 \subsubsection{b)}
 
-[for richardson extrapolation only the next step (yp1) functions need to be adjusted]
+For the Richardson extrapolation we need to define new functions for the different \textit{yp1Methods} again to calculate the value of the next $y$ value. However, the basic ODE solving function can be reused.
 
-[q and pk empirically]
-
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 7.13 b)]
 def fkFunc(f, x, y, h, yp1Func, q, pk, step):
 	if step == 1:
 		fh = yp1Func(f, x, y, h);
@@ -403,27 +390,22 @@ def rungeKuttaRichardson(f, a, b, y0, h):
 	return odeSolver(f, a, b, y0, h, rungeKuttaYP1Richardson);
 \end{lstlisting}
 
-
-
-X
-
-
+The required values for $q$ and $p_{k}$ have been empirically determined for each method.
 
 
 \subsection{Problem 7.14}
 
 
-\begin{figure}[!ht]
+%\begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/desc-7-14}
-\end{figure}
+%\end{figure}
 
-(iwo import functions from prob 7.13)
 
 \subsubsection{a)}
 
-X
+To calculate the respective $y$ values we can simply use the functions from Problem 7.13:
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 7.14 a)]
 def myF(x, y):
 	return math.sin(x * y);
 
@@ -443,21 +425,22 @@ plt.ylabel("y");
 plt.show();
 \end{lstlisting}
 
+The resulting graph of each method looks like the following:
 
-results:
+\newpage
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-7-14-a}
 \caption{todo}
 \end{figure}
 
-
+As it can be seen, the graphs of the functions are very close to each other and there is hardly any difference noticeable.
 
 \subsubsection{b)}
 
-X
+Again, using the functions from Problem 7.13 we can simply calculate the $y$ values with the Richardson extrapolation:
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 7.14 b)]
 eulerRichardsonYses = dif.eulerRichardson(myF, 0, 10, 1, 0.1);
 heunRichardsonYses = dif.heunRichardson(myF, 0, 10, 1, 0.1);
 rungeKuttaRichardsonYses = dif.rungeKuttaRichardson(myF, 0, 10, 1, 0.1);
@@ -467,25 +450,15 @@ print("heun: " + str(heunRichardsonYses[50]));
 print("runge-kutta: " + str(rungeKuttaRichardsonYses[50]));
 \end{lstlisting}
 
+The result of these calculations are:
 
-results:
-
-X
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
+\begin{lstlisting}[caption=Result of 7.14 b), keywordstyle=\color{black}]
 euler: 0.656662162824
 heun: 0.657837825456
 runge-kutta: 0.657541150858
 \end{lstlisting}
 
-X
-
-
-
-
-
-
-
+As expected, the value approximated with Euler's method is slightly below the other method's values, however with the Richardson extrapolation this error is not as critical as it would have been if the regular methods had been used.
 
 
 \subsection{Problem 7.15}
@@ -495,9 +468,7 @@ X
 \includegraphics[width=1\textwidth]{chapters/images/desc-7-15}
 \end{figure}
 
-
-
-X
+To [of two dif eqs] [system]
 
 \begin{lstlisting}[caption=todo]
 def sheepFunc(t, yVector):
@@ -536,7 +507,7 @@ plt.show();
 \end{lstlisting}
 
 
-results:
+Depending on $\alpha$ and the initial number of sheep and wolfs the graphs look like this:
 
 
 \begin{figure}[!ht]
@@ -556,11 +527,7 @@ results:
 \caption{$\alpha = 12$, initially 3 sheep and 2 wolfs}
 \end{figure}
 
-
-
-
-
-
+Biologically, this could be explained by the balance between predator and prey which is mandatory for both species to survive.
 
 \subsection{Problem 7.16}
 
@@ -569,11 +536,7 @@ results:
 \includegraphics[width=1\textwidth]{chapters/images/desc-7-16}
 \end{figure}
 
-
-
-X
-
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 7.16]
 def myF(x, y):
 	return x * math.sin(x * y);
 
@@ -589,16 +552,13 @@ plt.ylabel("y");
 plt.show();
 \end{lstlisting}
 
-
-results:
+The resulting graph looks like:
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-7-16}
-\caption{todo}
+\caption{Graph of Problem 7.16}
 \end{figure}
 
 
-
-Since the x parameter is a factor both inside and outside of the sine, the frequency as well as the amplitude increase as x grows. Hence, the fluctuation increases and the slopes get steeper and steeper. Because the step size stays the same, the curve gets \enquote{spikier} and slightly inaccurate.
-A possible solution could be to decrease the step size.
+Since the $x$ parameter is a factor both inside and outside of the sine, the frequency as well as the amplitude increase as $x$ grows. Hence, the fluctuation increases and the slopes get steeper and steeper. Because the step size stays the same, the curve gets \enquote{spikier} and slightly inaccurate. A possible solution could be to decrease the step size.
 

@@ -1,9 +1,8 @@
 \section{Linear Algebra}
 
-First, mylib to print mat
+First of all, a function to properly print vectors and matrices could come in handy. This can be realized the following way:
 
-
-\begin{lstlisting}[caption=mylib script to properly print vectors and matrices]
+\begin{lstlisting}[caption=Functions to properly print vectors and matrices]
 def getNumberString(pNumber, strLength):
 	nStr = str(round(pNumber, 2));
 	
@@ -15,12 +14,10 @@ def getNumberString(pNumber, strLength):
 		for i in range(spacesBefore): nStr = " " + nStr;
 	
 	return nStr;
-#
 
 def printVector(pVector):
     for element in pVector:
 		print(getNumberString(element, 7));
-#
 
 def printMatrix(pMatrix):
 	for row in pMatrix:
@@ -28,7 +25,6 @@ def printMatrix(pMatrix):
 		for element in row:
 			rowStr += getNumberString(element, 7) + " ";
 		print(rowStr);
-#
 \end{lstlisting}
 
 
@@ -40,11 +36,7 @@ def printMatrix(pMatrix):
 \end{figure}
 
 
-
-
-prog to read from txt
-
-txt must have following form:
+To read a matrix and a vector from a text file, first a form has to be determined, for example like this:
 
 \begin{lstlisting}
 1 -2 3 -4;
@@ -55,19 +47,9 @@ txt must have following form:
 6.1 5.2 4.2 3.1;
 \end{lstlisting}
 
-first matrix
+The first part is the matrix, where each line represents one row and each element within that row is seperated by a space. After a line of at least one hashtag, the following values are the elements of the vector, again seperated by a single space. If that form is adhered to, the matrix and vector can be read from the text file with the following script:
 
-elements seperated by single space
-row ends with semicolon
-
-hashtag sign to indicate that matrix is over, vector comes next 
-
-vector as row, read same as matrix row.
-
-
-following script to read txt
-
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Extracting the matrix and vector from the text file]
 def getVectorFromLine(line):
 	numbers = [];
 	numberString = "";
@@ -79,8 +61,6 @@ def getVectorFromLine(line):
 			numberString += c;
 	
 	return numbers;
-#
-
 
 myMatrix = [];
 myVector = [];
@@ -107,20 +87,16 @@ print("Vector from file:");
 mylib.printVector(myVector);
 \end{lstlisting}
 
-afterwards, you have mat and vec from txt as vars $myMatrix$ and $myVector$ as python arrays, where the vector is a one-dim array and the matrix a 2 dim array, with first dim rows and second dim the elements.
-
-
+Afterwards, the matrix and vector from the text file can be used as Python arrays, where the vector is a one-dimensional array and the matrix a two-dimensional array, with the single rows in the first dimension.
 
 
 \subsubsection{a)}
 
-for in-built functions numpy (np).
+For the built-in functions the Python library \textit{numpy} can be used:
 
-np = numpy
+\begin{lstlisting}[caption=Problem 1.1 a)]
+import numpy as np;
 
-easy / self-explanatory
-
-\begin{lstlisting}[caption=todo]
 matrixRows = len(myMatrix);
 matrixCols = len(myMatrix[0]);
 vectorRows = len(myVector);
@@ -194,11 +170,9 @@ if isMatrixSquare:
 	print(isPosDef);
 else:
 	print(notSquareStr);
-
 \end{lstlisting}
 
-
-results:
+The results are:
 
 \begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
 determinant:
@@ -230,18 +204,16 @@ False
 
 is positive definite:
 True
-
 \end{lstlisting}
 
-matrix is square (evtl noch andere conditions) therefore all things could be done.
+Since the matrix in the text file is square all calculations could be done.
 
 
 \subsubsection{b)}
 
-to solve the lin system, check whether matrix cols and vector rows are equal. afterwards, use built-in (numpy again).
+In order to solve the linear system, it has to be check first whether number of columns in the matrix equals the number of rows in the vector. If so, a built-in function from \textit{numpy} can be used to solve the system:
 
-\begin{lstlisting}[caption=todo]
-
+\begin{lstlisting}[caption=Problem 1.1 b)]
 if not isMatrixSquare:
 	print(notSquareStr);
 	sys.exit();
@@ -257,11 +229,9 @@ xNum = 1;
 for linSolution in linSolutions:
 	print("x" + str(xNum) + " = " + str(linSolution));
 	xNum += 1;
-
 \end{lstlisting}
 
-XS
-
+The resulting x values are:
 
 \begin{lstlisting}[caption=Result of 1.1 b), keywordstyle=\color{black}]
 x1 = -0.33829787234
@@ -273,12 +243,9 @@ x4 = -1.13439716312
 
 \subsubsection{c)}
 
+The Gaussian Elemination can be realized without an built-in function in the following way:
 
-
-Y
-
-\begin{lstlisting}[caption=todo]
-
+\begin{lstlisting}[caption=Problem 1.1 c)]
 def gaussElemMethod(matrix, vector):
 	n = len(matrix[0]);
 	
@@ -305,8 +272,6 @@ def gaussElemMethod(matrix, vector):
 			
 			vector[i] = vector[i] - qik * vector[k];
 
-
-
 gaussElemMethod(myMatrix, myVector);
 
 print("matrix after elimination:");
@@ -314,10 +279,9 @@ mylib.printMatrix(myMatrix);
 
 print("vector after elimination:");
 mylib.printVector(myVector);
-
 \end{lstlisting}
 
-Z
+Applying this function to the matrix and vector from the text file leads to the following results:
 
 \begin{lstlisting}[caption=Result of 1.1 c), keywordstyle=\color{black}]
 matrix after elimination:
@@ -336,22 +300,16 @@ vector after elimination:
 
 \subsection{Problem 1.2}
 
-
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/desc-1-2}
 \end{figure}
 
 
-
-
-prog to read from txt
-
 \subsubsection{a)}
 
-Y
+Multiplying two matrices can be done with the following script:
 
-\begin{lstlisting}[caption=todo]
-
+\begin{lstlisting}[caption=Problem 1.2 a)]
 matrix1 = [[1.8, -2], [3, -4.1], [3, 2]];
 matrix2 = [[1, -2, -3, 4], [-5, 4, 1, 1]];
 
@@ -389,11 +347,9 @@ for matrix1Row in range(matrix1Rows):
 	resultMatrix.append(resultVector);
 
 mylib.printMatrix(resultMatrix);
-
 \end{lstlisting}
 
-X
-
+The result of the multiplication of the two matrices defined in the script is:
 
 \begin{lstlisting}[caption=Result of 1.2 a), keywordstyle=\color{black}]
 matrix A:
@@ -413,10 +369,9 @@ A x B:
 
 \subsubsection{b)}
 
-Y
+Transposing a matrix can be done easily with an own function as well:
 
-\begin{lstlisting}[caption=todo]
-
+\begin{lstlisting}[caption=Problem 1.2 b)]
 matrix3 = [[1, 2.4], [3.3, -4], [-5, -6.1]];
 
 print("matrix C:");
@@ -437,11 +392,9 @@ for j in range(matrix3Cols):
 
 print("C transposed:");
 mylib.printMatrix(transposedMatrix);
-
 \end{lstlisting}
 
-X
-
+The result is:
 
 \begin{lstlisting}[caption=Result of 1.2 b), keywordstyle=\color{black}]
 matrix C:

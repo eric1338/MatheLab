@@ -9,106 +9,164 @@
 \end{figure}
 
 
-X
-
-\begin{lstlisting}[caption=todo]
-
-C
-
-\end{lstlisting}
-
-Y
-
-
 \subsubsection{a)}
 
-X
+class for RNG
 
-\begin{lstlisting}[caption=todo]
-
-C
-
+\begin{lstlisting}[caption=Problem 3.6 a)]
+class RNG:
+	
+	def __init__(self, pA = 7141, pB = 54773, pM = 259200):
+		self.bits = [];
+		self.x = 1;
+		self.a = pA;
+		self.b = pB;
+		self.m = pM;
+	
+	def printParameters(self):
+		print("a = " + str(self.a) + ", b = " + str(self.b) + ", m = " + str(self.m));
+	
+	def getRandomNumber(self):
+		self.x = (self.a * self.x + self.b) % self.m;
+		return self.x;
+	
+	def addNumbers(self, number):
+		binNumber = bin(number)[2:];
+		
+		for bitNumber in binNumber:
+			self.bits.append(int(bitNumber));
+	
+	def fillNumbers(self, iterations):
+		for i in range(iterations):
+			self.addNumbers(self.getRandomNumber());
 \end{lstlisting}
-
-
-results:
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
-R
-\end{lstlisting}
-
-X
-
 
 
 \subsubsection{b)}
 
-X
+To test for symmetry and periodicity, new functions can be added to the RNG class from a).
 
-\begin{lstlisting}[caption=todo]
-
-C
-
+\begin{lstlisting}[caption=Problem 3.6 b)]
+	def makeSymmetryTest(self):
+		sum = 0;
+		
+		for b in self.bits:
+			sum += b;
+		
+		deviation = abs(0.5 - (sum / float(len(self.bits))));
+		
+		print("symmetry test:")
+		print("deviation = " + str(deviation));
+	
+	def isPeriod(self, periodLength):
+		nBits = len(self.bits);
+		
+		if periodLength * 2 > nBits: return False;
+		
+		iterations = int(math.floor(nBits / float(periodLength)));
+		
+		for i in range(periodLength):
+			compareElement = self.bits[i];
+		
+			for j in range(1, iterations):
+				key = j * periodLength + i;
+				
+				if key >= nBits: break;
+				
+				element = self.bits[key];
+				
+				if element != compareElement:
+					return False;
+		
+		return True;
+	
+	def makePeriodicityTest(self):
+		periodLength = -1;
+		
+		maximumPeriod = self.m * int(math.ceil(math.log(self.m, 2)));
+		
+		for i in range(1, maximumPeriod):
+			if self.isPeriod(i):
+				periodLength = i;
+				break;
+		
+		print("periodicity test:");
+		
+		if periodLength < -0.5:
+			print("no period found.");
+		else:
+			print("period length = " + str(periodLength));
 \end{lstlisting}
 
+Running these tests with the values $a = 7141$, $b = 54773$ and $m = 2592000$ lead to the following results.
 
-results:
 
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
-R
+\begin{lstlisting}[caption=Result of 3.6 b), keywordstyle=\color{black}]
+symmetry test:
+deviation = 0.0266565772348
+
+perodicity test:
+no period found.
 \end{lstlisting}
 
-X
-
-
-
+Note: The periodicty test had been aborted prematurely due to excessive run times of the program. With the large value $m$ and the conversion of the numbers into binary the length of the period cannot be calculated within reasonable time.
 
 
 \subsubsection{c)}
 
-X
+Applying the Neumann Filter can also be realized as an additional function for the RNG class:
 
-\begin{lstlisting}[caption=todo]
-
-C
-
+\begin{lstlisting}[caption=Problem 3.6 c)]
+	def applyNeumannFilter(self):
+		tempBits = self.bits;
+		self.bits = [];
+		
+		nIterations = int(math.floor(len(tempBits) / 2.0));
+		
+		for i in range(nIterations):
+			bit1 = tempBits[i * 2];
+			bit2 = tempBits[i * 2 + 1];
+			
+			if (bit1 == 0 and bit2 == 1):
+				self.bits.append(0);
+			elif (bit1 == 1 and bit2 == 0):
+				self.bits.append(1);
 \end{lstlisting}
 
+The results with the same values of b) after applying the Neumann Filter are:
 
-results:
+\begin{lstlisting}[caption=Result of 3.6 c), keywordstyle=\color{black}]
+symmetry test:
+deviation = 0.000162239945826
 
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
-R
+perodicity test:
+no period found.
 \end{lstlisting}
 
-X
-
+Again, the periodicity test has been aborted prematurely.
 
 
 \subsubsection{d)}
 
-X
+With the RNG class the values of $a$, $b$ and $m$ can easily be changed for further experiments:
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Result of 3.6 d), keywordstyle=\color{black}]
+a = 1, b = 1, m = 20
+symmetry test:
+deviation = 0.0769230769231
 
-C
+a = 20, b = 30, m = 100000
+symmetry test:
+deviation = 0.0624828117265
 
+a = 214013, b = 2531011, m = 4294967296
+symmetry test:
+deviation = 0.0168803363686
 \end{lstlisting}
 
+Looking at the results the deviation tends to get smaller the higher the value of $m$ is. However, even with a value as little as 20 the deviation is somewhat reasonable.
 
-results:
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
-R
-\end{lstlisting}
-
-X
-
-
-
-
-
-
+[also a and b prime]
 
 
 \subsection{Problem 3.7}
@@ -119,70 +177,48 @@ X
 \end{figure}
 
 
-X
-
-\begin{lstlisting}[caption=todo]
-
-C
-
-\end{lstlisting}
-
-Y
-
-
 \subsubsection{a)}
 
-X
+The first 100 numbers of the data can be dispayed the following way:
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 3.7 a)]
+[U, S] = pca(X_norm);
+eigenVectors = U(:,1:100);
 
-C
-
+displayData(eigenVectors');
 \end{lstlisting}
 
-
-results:
+The first 100 numbers of the data looks like this:
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-3-7-a}
-\caption{todo}
+\caption{The first 100 numbers of the data}
 \end{figure}
 
-X
-
-
-
-\subsubsection{b)}
-
-X
-
-\begin{lstlisting}[caption=todo]
-
-C
-
-\end{lstlisting}
-
-
-results:
+The top 100 eigenvectors
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-3-7-b}
-\caption{todo}
+\caption{The top 100 eigenvectors}
 \end{figure}
-X
 
+\subsubsection{b)}
 
+To project the data down to 100 dimensions, 
+
+\begin{lstlisting}[caption=Problem 3.7 b)]
+Z = X_norm * eigenVectors;
+\end{lstlisting}
 
 
 
 \subsubsection{c)}
 
-X
+\begin{lstlisting}[caption=Problem 3.7 c)]
+recoveredData = Z * eigenVectors';
 
-\begin{lstlisting}[caption=todo]
-
-C
-
+displayData(X_norm(1:100,:));
+displayData(recoveredData(1:100,:));
 \end{lstlisting}
 
 
@@ -190,7 +226,7 @@ results:
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-3-7-c}
-\caption{todo}
+\caption{The data using 100 principal components}
 \end{figure}
 X
 
@@ -198,33 +234,15 @@ X
 
 \subsubsection{d)}
 
-X
-
-\begin{lstlisting}[caption=todo]
-
-C
-
-\end{lstlisting}
-
-
-results:
-
-
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-3-7-d1}
-\caption{todo - 50 principal components}
+\caption{The data using 50 principal components}
 \end{figure}
-
-X
-
-
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-3-7-d2}
-\caption{todo - 10 principal components}
+\caption{The data using 10 principal components}
 \end{figure}
-
-
 
 
 \subsubsection{e)}
