@@ -11,9 +11,7 @@
 
 \subsubsection{a)}
 
-To calculate the coefficients, [...]
-
-[numpy to solve lin eq]
+To solve the linear equation for the coefficients the \textit{numpy} library can be used again.
 
 \begin{lstlisting}[caption=Problem 5.9 a)]
 def getCoefficients(fx, degree, a, b):
@@ -49,7 +47,7 @@ This function will be used in the following subtasks.
 
 \subsubsection{b)}
 
-To use the coefficients as a function, a python function to [return a value is required].
+To use the coefficients as a function, a python function for the calculation of the $y$ values has to be defined as well:
 
 \begin{lstlisting}[caption=Function which uses the calculated coefficients]
 def polynomialF(coefficients, x):
@@ -61,9 +59,9 @@ def polynomialF(coefficients, x):
 	return sum;
 \end{lstlisting}
 
-[now plot them]
+Afterwards, the function values for the coefficients can be calculated and the result plotted.
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 5.9 b)]
 def myF(x):
 	return pow(math.e, -pow(x, 2));
 
@@ -87,7 +85,7 @@ plt.ylabel("y");
 plt.show();
 \end{lstlisting}
 
-[the resulting plot looks like the following]
+The resulting graph looks like the following:
 
 %\begin{figure}[h!]
 \includegraphics[width=1\textwidth]{chapters/images/figure-5-9-b}
@@ -99,8 +97,7 @@ plt.show();
 \caption{Plot of both functions}
 \end{figure}
 
-[blue - real, green - approx]
-[close to origin in the positive part pretty equal]
+The blue curve represents the real values, while the green curve represents the graph of the polynomial approximation. Within the interval $[-1, 8]$ the deviations to be relatively small, outside of the interval however there seem to be bigger differences between both functions.
 
 
 \subsubsection{c)}
@@ -127,11 +124,9 @@ maximum deviation: 0.634025332357
 
 \subsubsection{d)}
 
-[First Taylor Series]
+First the functions to get the $y$ values for both Taylor series have to be defined:
 
-[Calc Yses for Plot]
-
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Definition of the Taylor functions]
 def taylorFuncAt0(x):
 	sum = 1;
 	sum -= pow(x, 2);
@@ -173,10 +168,9 @@ for i in range(100):
 	taylor4Yses.append(taylorFuncAt4(x));
 \end{lstlisting}
 
-[Then calculate deviation]
+Afterwards the deviation of both functions to the original function can be calculated:
 
-\begin{lstlisting}[caption=todo]
-
+\begin{lstlisting}[caption=Problem 5.9 d)]
 maxTaylor0Dev = -1;
 maxTaylor4Dev = -1;
 
@@ -192,20 +186,19 @@ print("maximum deviation of taylor series with c = 0: " + str(maxTaylor0Dev));
 print("maximum deviation of taylor series with c = 4: " + str(maxTaylor4Dev));
 \end{lstlisting}
 
-[the results are]
+The results of the calculation are:
 
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
+\begin{lstlisting}[caption=Result of 5.9 d), keywordstyle=\color{black}]
 maximum deviation of taylor series with c = 0: 1.88827128486e+11
 maximum deviation of taylor series with c = 4: 354.936464804
 \end{lstlisting}
 
-[taylor at $c = 0$ with much bigger deviation]
+As it can be easily seen, the Taylor series expanded around $x_{0} = 0$ has a much bigger deviation than the series expanded around $x_{0} = 4$. The reason for that is that the $y$ value of a Taylor series tends to deviate stronger as further the respective $x$ is from the expantion point $x_{0}$. With $x_{0} = 4$ the maximum $\Delta x$ ($\Delta x = |x - x_{0}|$) is 6, which is as little as possible since $4$ is in the middle of the interval $[-2, 10]$. With $x_{0} = 0$ however the maximum $\Delta x$ is 10, therefore the Taylor series expanded there is deviating much more.
 
-[because $c = 4$ is the center of interval]
 
+\newpage
 
 \subsection{Problem 5.10}
-
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/desc-5-10}
@@ -213,10 +206,6 @@ maximum deviation of taylor series with c = 4: 354.936464804
 
 
 \subsubsection{a)}
-
-[get coefficients with method of least squares]
-
-[again lin eq can be solved with numpy]
 
 \begin{lstlisting}[caption=Problem 5.10 a)]
 def getCoefficients(baseFunctions, dataPoints):
@@ -258,11 +247,9 @@ def getCoefficients(baseFunctions, dataPoints):
 
 \subsubsection{b)}
 
-[with the function from a), simple to make the lin eq with two base functions.]
+Wth the function from a), the linear equations can be easily approximated by using two base functions:
 
-[afterwards, calculate enough y values and plot them]
-
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 5.10 b)]
 def myF1(x): return x;
 def myF0(x): return 1;
 
@@ -304,10 +291,9 @@ plt.ylabel("y");
 plt.show();
 \end{lstlisting}
 
+The coefficients calculated from the random data points are the following:
 
-[The result of the exact coefficients and the approximation with random points are]
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
+\begin{lstlisting}[caption=Result of 5.10 b), keywordstyle=\color{black}]
 coefficients:
 [ 0.64   0.23 ]
 
@@ -315,21 +301,23 @@ approximated coefficients:
 [ 0.63139257   2.33442881 ]
 \end{lstlisting}
 
-[the approximated coefficients are very close.]
+As it can be seen, the approximated coefficients deviate very little from the actual linear equation.
 
-[the plot of the exact linear equation and the random points looks like this:]
+The exact linear equation and the data points are visualized in the following graph:
+
+\newpage
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-5-10-b}
-\caption{todo}
+\caption{The linear equation as well as the data points}
 \end{figure}
 
 
 \subsubsection{c)}
 
-[also with the function, poly degree 4 and 2 which is needed for subtask d)]
+Using the function from a), new data points and new base function, a polynomial of degree 4 (as well as degree 2 for the subtask d)) can be easily created:
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 5.10 c)]
 def myF4(x): return pow(x, 4);
 def myF3(x): return pow(x, 3);
 def myF2(x): return pow(x, 2);
@@ -372,7 +360,14 @@ txtCoefficients2 = getCoefficients(txtBaseFns2, txtPoints);
 
 txtPointsXses = [];
 txtPointsYses = [];
+\end{lstlisting}
 
+
+\subsubsection{d)}
+
+With both polynomial functions the squared error can now be calculated:
+
+\begin{lstlisting}[caption=Calculating the squared errors of both polynomials]
 error4 = 0;
 error2 = 0;
 
@@ -388,14 +383,20 @@ for i in range(len(txtPoints)):
 	error4 += pow(y4 - txtPoint[1], 2);
 	error2 += pow(y2 - txtPoint[1], 2);
 
-
 print("error of degree 4 polynomial: " + str(error4));
 print("error of degree 2 polynomial: " + str(error2));
+\end{lstlisting}
 
-txtFXses = [];
-txtF4Yses = [];
-txtF2Yses = [];
+The resulting errors are:
 
+\begin{lstlisting}[caption=Squared errors of both polynomials, keywordstyle=\color{black}]
+error of degree 4 polynomial: 101457690.277
+error of degree 2 polynomial: 7711489909.2
+\end{lstlisting}
+
+As it can be seen, the error of the degree 4 polynomial is over 70 times smaller than the degree 2 polynomial. This is mainly due to the fact that the data points lay suitable for a degree 4 polynomial.
+
+\begin{lstlisting}[caption=Plotting both polynomials]
 for i in range(152):
 	x = 8 + i * 0.25;
 	
@@ -407,7 +408,6 @@ for i in range(152):
 	txtF4Yses.append(y4);
 	txtF2Yses.append(y2);
 
-
 plt.plot(txtFXses, txtF4Yses);
 plt.plot(txtFXses, txtF2Yses);
 plt.plot(txtPointsXses, txtPointsYses, "ro");
@@ -416,45 +416,14 @@ plt.ylabel("y");
 plt.show();
 \end{lstlisting}
 
+The plot of the polynomials look like this:
 
-results:
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
-R
-\end{lstlisting}
-
-X
-
-
-
-\subsubsection{d)}
-
-[use the functions from c) 
-
-\begin{lstlisting}[caption=todo]
-
-siehe c) - aufdroeseln
-
-\end{lstlisting}
-
-
-results:
-
-\begin{lstlisting}[caption=Result of 1.1 a), keywordstyle=\color{black}]
-error of degree 4 polynomial: 101457690.277
-error of degree 2 polynomial: 7711489909.2
-\end{lstlisting}
-
-[error of degree 4 over 70 times smaller] [makes sense]
-
-[the plot looks like this]
+\newpage
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-5-10-d}
-\caption{todo}
+\caption{Result of Problem 5.10 d)}
 \end{figure}
-
-[perfectly illustrates the closeness and farawayness of each function]
 
 
 \subsection{Problem 5.11}
@@ -464,12 +433,12 @@ error of degree 2 polynomial: 7711489909.2
 \includegraphics[width=1\textwidth]{chapters/images/desc-5-11}
 \end{figure}
 
-The methods $getCoefficients$ and $polynomialF$ as well as the $txtPoints$ from problem 5.10 will be used in this exercise as well.
+The previously defined functions $getCoefficients$ and $polynomialF$ as well as the data points $txtPoints$ from problem 5.10 will be used in this exercise too.
 
 
 \subsubsection{a)}
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 5.11 a)]
 evenPoints = [];
 
 for txtPoint in txtPoints:
@@ -480,7 +449,7 @@ for txtPoint in txtPoints:
 
 \subsubsection{b)}
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 5.11 b)]
 matrixX = [];
 matrixT = [];
 
@@ -496,9 +465,9 @@ for evenPoint in evenPoints:
 
 \subsubsection{c)}
 
-[To get the polynomials up to degree 8, first the base functions have to be defined:]
+To get the polynomials up to degree 8, first the base functions have to be defined:
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Base functions up to degree 8]
 def myF8(x): return pow(x, 8);
 def myF7(x): return pow(x, 7);
 def myF6(x): return pow(x, 6);
@@ -526,9 +495,9 @@ def getBaseFunctionList(degree):
 	return baseFunctions;
 \end{lstlisting}
 
-[using these base functions the coefficients can be calculated with the $getCoefficients$ function. Afterwards, the y values of those functions can be collected with the $polynomialF$ function to plot them].
+By using these base functions the coefficients can be easily calculated with the $getCoefficients$ function. Afterwards, the $y$ values of those functions can be calculated with the $polynomialF$ function in order to plot them.
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 5.11 c)]
 xses = [];
 allYses = [];
 
@@ -574,19 +543,17 @@ plt.ylabel("y");
 plt.show();
 \end{lstlisting}
 
-[the resulting graph looks like this.]
+The resulting graph looks like this.
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-5-11-c}
-\caption{todo}
+\caption{All 7 polynomials}
 \end{figure}
 
 
 \subsubsection{d)}
 
-[to calculate the error, square of distance between data point]
-
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 5.11 d)]
 def getError(coefficients, mat):
 	errorSum = 0;
 	
@@ -628,25 +595,26 @@ plt.ylabel("error");
 plt.show();
 \end{lstlisting}
 
-[the result looks the following:]
+The resulting errors look the like the following:
+
+\newpage
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-5-11-d}
-\caption{todo}
+\caption{The errors of the polynomials}
 \end{figure}
 
 
 \subsubsection{e)}
 
-[with a higher degree, the deviation from training data is pretty small]. [obv since they are used for the small function]
-
-[on the test data however the error first drops but then increases]
-
 The deviation to the original approximated function (where all data points were used) minimizes the more evenly the points of X and T are distributed. The reason for that is that when there's a large interval of test points only, the approximated function has no bounds at all in that interval and can deviate as much as it needs to, without increasing the error.
-The results seems to be the the best with polynomials of degree 4 and 5.
 
-[a reason could be that functions of higher degrees tend to spike more, and they are more free with \enquote{loose} test data points]
+For the training data X the error decreases the higher the degree of the polynomial is. For the test data T however the error first decreases up degree 4 and 5, but then 
+rapidly increases with each additional degree. A reason for that could be that functions of higher degrees tend to have bigger distortions, and since there are no bounds on the test data points they are free to do so.
+
+In most of the cases the polynomials of degree 4 and 5 had the best results.
+
 
 \subsubsection{f)}
 
-It makes sense because the approximated function is supposed to be close to all data values, and even the points \enquote{in between} which are not part of both the training and test data.
+It makes sense because the approximated function is supposed to be close to all data values, even the points \enquote{in between} which are not part of both the training and test data.

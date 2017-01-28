@@ -312,7 +312,7 @@ def odeSystemSolver(fVector, a, b, y0Vector, h, yp1Methods):
 
 Also a new \textit{yp1Method} has to be defined:
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=YP1Method for solving an ODE system]
 def rungeKuttaYP1System(fVector, x, yVector, h):
 	nF = len(fVector);
 	
@@ -395,7 +395,6 @@ The required values for $q$ and $p_{k}$ have been empirically determined for eac
 
 \subsection{Problem 7.14}
 
-
 %\begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/desc-7-14}
 %\end{figure}
@@ -431,7 +430,7 @@ The resulting graph of each method looks like the following:
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-7-14-a}
-\caption{todo}
+\caption{Graph of the results of the 3 methods}
 \end{figure}
 
 As it can be seen, the graphs of the functions are very close to each other and there is hardly any difference noticeable.
@@ -468,9 +467,9 @@ As expected, the value approximated with Euler's method is slightly below the ot
 \includegraphics[width=1\textwidth]{chapters/images/desc-7-15}
 \end{figure}
 
-To [of two dif eqs] [system]
+To simulate the predator-prey-model an ODE system has to be created, with one equation for the sheep and one for the wolfs. Afterwards, the solution can be simply calculated with the script from Problem 7.13:
 
-\begin{lstlisting}[caption=todo]
+\begin{lstlisting}[caption=Problem 7.15]
 def sheepFunc(t, yVector):
 	return 10 * yVector[0] * (1 - yVector[1]);
 
@@ -506,21 +505,17 @@ plt.ylabel("y");
 plt.show();
 \end{lstlisting}
 
-
 Depending on $\alpha$ and the initial number of sheep and wolfs the graphs look like this:
-
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-7-15-1}
 \caption{$\alpha = 10$, initially 3 sheep and 1 wolfs}
 \end{figure}
 
-
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-7-15-2}
 \caption{$\alpha = 9$, initially 4 sheep and 2 wolfs}
 \end{figure}
-
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-7-15-3}
@@ -529,8 +524,10 @@ Depending on $\alpha$ and the initial number of sheep and wolfs the graphs look 
 
 Biologically, this could be explained by the balance between predator and prey which is mandatory for both species to survive.
 
-\subsection{Problem 7.16}
 
+\newpage
+
+\subsection{Problem 7.16}
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/desc-7-16}

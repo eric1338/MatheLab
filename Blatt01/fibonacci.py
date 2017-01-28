@@ -11,12 +11,9 @@ def fibonacciFunc(x):
 	return fibonacciFunc(x - 1) + fibonacciFunc(x - 2);
 
 
-results = [];
-
-for i in range(20):
+for i in range(1, 21):
 	fib = fibonacciFunc(i);
-	print("fib(" + str(i + 1) + ") = " + str(fib));
-	results.append(fib);
+	print("fib(" + str(i) + ") = " + str(fib));
 	
 
 print(" ");

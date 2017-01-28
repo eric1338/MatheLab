@@ -58,11 +58,7 @@ def bFunc2(d):
 		results.append(bFunc(d, x));
 		x += xStep;
 	
-	fn = [];
-	fn.append(xses);
-	fn.append(results);
-	
-	return fn;
+	return [xses, results];
 
 
 for i in range(0, 7):

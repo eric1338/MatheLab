@@ -16,7 +16,8 @@ class Bucket:
 		water = self.beta - self.alpha;
 		self.waterUsed += water;
 		
-		self.poison = (1 - water) * self.poison;
+		#self.poison = (1 - water) * self.poison;
+		self.poison = (self.alpha / float(self.beta)) * self.poison;
 	
 	
 	def clean(self):
@@ -26,7 +27,7 @@ class Bucket:
 	
 
 
-bu = Bucket(0.01, 1, 10e-9);
+bu = Bucket(0.01, 0.15, 10e-9);
 bu.clean();
 
 print("a)");

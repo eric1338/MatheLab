@@ -11,11 +11,8 @@
 
 \subsubsection{a)}
 
-class for RNG
-
 \begin{lstlisting}[caption=Problem 3.6 a)]
 class RNG:
-	
 	def __init__(self, pA = 7141, pB = 54773, pM = 259200):
 		self.bits = [];
 		self.x = 1;
@@ -98,8 +95,7 @@ To test for symmetry and periodicity, new functions can be added to the RNG clas
 			print("period length = " + str(periodLength));
 \end{lstlisting}
 
-Running these tests with the values $a = 7141$, $b = 54773$ and $m = 2592000$ lead to the following results.
-
+Running these tests with the values $a = 7141$, $b = 54773$ and $m = 259200$ lead to the following results.
 
 \begin{lstlisting}[caption=Result of 3.6 b), keywordstyle=\color{black}]
 symmetry test:
@@ -166,20 +162,26 @@ deviation = 0.0168803363686
 
 Looking at the results the deviation tends to get smaller the higher the value of $m$ is. However, even with a value as little as 20 the deviation is somewhat reasonable.
 
-[also a and b prime]
-
 
 \subsection{Problem 3.7}
-
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/desc-3-7}
 \end{figure}
 
+The first 100 numbers of the data looks like this:
+
+\newpage
+
+\begin{figure}[!ht]
+\includegraphics[width=1\textwidth]{chapters/images/figure-3-7-a}
+\caption{The first 100 numbers of the data}
+\end{figure}
+
 
 \subsubsection{a)}
 
-The first 100 numbers of the data can be dispayed the following way:
+The top 100 eigenvectors can be dispayed the following way:
 
 \begin{lstlisting}[caption=Problem 3.7 a)]
 [U, S] = pca(X_norm);
@@ -188,31 +190,28 @@ eigenVectors = U(:,1:100);
 displayData(eigenVectors');
 \end{lstlisting}
 
-The first 100 numbers of the data looks like this:
+The resulting visualization is:
 
-\begin{figure}[!ht]
-\includegraphics[width=1\textwidth]{chapters/images/figure-3-7-a}
-\caption{The first 100 numbers of the data}
-\end{figure}
-
-The top 100 eigenvectors
+\newpage
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-3-7-b}
 \caption{The top 100 eigenvectors}
 \end{figure}
 
+
 \subsubsection{b)}
 
-To project the data down to 100 dimensions, 
+The data can be projected down to 100 dimensions in the following way:
 
 \begin{lstlisting}[caption=Problem 3.7 b)]
 Z = X_norm * eigenVectors;
 \end{lstlisting}
 
 
-
 \subsubsection{c)}
+
+Recovering the data:
 
 \begin{lstlisting}[caption=Problem 3.7 c)]
 recoveredData = Z * eigenVectors';
@@ -221,15 +220,12 @@ displayData(X_norm(1:100,:));
 displayData(recoveredData(1:100,:));
 \end{lstlisting}
 
-
-results:
+The recovered numbers look like this:
 
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-3-7-c}
 \caption{The data using 100 principal components}
 \end{figure}
-X
-
 
 
 \subsubsection{d)}
@@ -239,6 +235,8 @@ X
 \caption{The data using 50 principal components}
 \end{figure}
 
+\newpage
+
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{chapters/images/figure-3-7-d2}
 \caption{The data using 10 principal components}
@@ -247,4 +245,4 @@ X
 
 \subsubsection{e)}
 
-Like the JPEG compression detail gets lost, especially between two areas where the color contrast is high.
+By reducing the number of dimensions the detail gets lost in a similar way like the JPEG compression. This can be observed especially between two areas with a high color contrast.
